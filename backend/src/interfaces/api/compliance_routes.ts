@@ -9,11 +9,14 @@ import { IAuthRepository, IUserRepository } from '../../domain/auth/repositories
 import { UserRole } from '../../domain/auth/entities';
 import { ImplementationStatus } from '../../domain/compliance/framework_values';
 import { createEvidenceRouter } from './evidence_routes';
+import { PolicyController } from './policy_controller';
+import { createPolicyRouter } from './policy_routes';
 
 export const createComplianceRouter = (
   frameworkController: FrameworkController,
   controlController: ControlController,
   evidenceController: EvidenceController,
+  policyController: PolicyController,
   authRepository: IAuthRepository,
   userRepository: IUserRepository
 ): Router => {
@@ -130,6 +133,9 @@ export const createComplianceRouter = (
 
   // Mount evidence routes
   router.use('/evidence', createEvidenceRouter(evidenceController, authRepository, userRepository));
+
+  // Mount policy routes
+  router.use('/policies', createPolicyRouter(policyController, authRepository, userRepository));
 
   return router;
 };
