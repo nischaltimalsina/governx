@@ -57,40 +57,32 @@ The codebase implements several DDD patterns:
 ```
 backend/
 ├── src/
-│   ├── domain/
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   ├── services/
-│   │   └── common/
-│   │
-│   ├── application/
-│   │   ├── usecases/
-│   │   ├── dto/
-│   │   ├── commands/
-│   │   └── queries/
-│   │
-│   ├── infrastructure/
-│   │   ├── database/
-│   │   ├── repositories/
-│   │   ├── auth/
-│   │   ├── monitoring/
-│   │   ├── services/
-│   │   └── middlewares/
-│   │
-│   ├── interfaces/
-│   │   ├── controllers/
-│   │   └── routes/
-│   │
-│   ├── __tests__/
-│   │   ├── unit/
-│   │   └── integration/
-│   │
-│   └── server.ts
-│
-├── Dockerfile
-├── Dockerfile.test
-├── package.json
-└── tsconfig.json
+│   ├── domain/                     # Core domain logic
+│   │   ├── common/                 # Shared domain utilities
+│   │   │   ├── Entity.ts           # Base entity class
+│   │   │   └── Result.ts           # Result pattern implementation
+│   │   ├── compliance/             # Compliance domain
+│   │   │   ├── entities.ts         # Domain entities grouped by context
+│   │   │   ├── repositories.ts     # Repository interfaces
+│   │   │   └── services.ts         # Domain services
+│   │   └── risk/                   # Risk domain (same structure)
+│   ├── application/                # Application services
+│   │   ├── compliance/             # Use cases for compliance domain
+│   │   │   ├── CreateFramework.ts  # Individual use case files
+│   │   │   └── UpdateControl.ts    # Clear naming reflecting business operations
+│   │   └── dtos/                   # DTOs shared across use cases
+│   ├── infrastructure/             # External dependencies
+│   │   ├── database.ts             # Database setup
+│   │   ├── repositories/           # Repository implementations
+│   │   └── auth/                   # Authentication logic
+│   ├── interfaces/                 # User interfaces
+│   │   ├── api/                    # API endpoints
+│   │   │   ├── controllers.ts      # Grouped by domain, fewer files
+│   │   │   ├── routes.ts           # Consolidated route definitions
+│   │   │   └── middlewares.ts      # Common API middlewares
+│   │   └── errors.ts               # Error handling
+│   └── server.ts                   # Entry point
+└── tests/                          # Tests by domain
 ```
 
 ## Workflow Patterns
