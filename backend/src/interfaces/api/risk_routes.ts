@@ -9,8 +9,6 @@ import {
   RiskCategory,
   RiskImpact,
   RiskLikelihood,
-  RiskStatus,
-  RiskSeverity,
   TreatmentType,
   TreatmentStatus
 } from '../../domain/risk/risk_values';

@@ -8,21 +8,22 @@ import {
  * Interface representing a Risk Treatment document in MongoDB
  */
 export interface IRiskTreatmentDocument extends Document {
-  riskId: string;
-  name: string;
-  description: string;
-  type: string;
-  status: string;
-  dueDate?: Date;
-  completedDate?: Date;
-  assignee?: string;
-  cost?: number;
-  relatedControlIds?: string[];
-  isActive: boolean;
-  createdBy: string;
-  updatedBy?: string;
-  createdAt: Date;
-  updatedAt?: Date;
+  _id: string
+  riskId: string
+  name: string
+  description: string
+  type: string
+  status: string
+  dueDate?: Date
+  completedDate?: Date
+  assignee?: string
+  cost?: number
+  relatedControlIds?: string[]
+  isActive: boolean
+  createdBy: string
+  updatedBy?: string
+  createdAt: Date
+  updatedAt?: Date
 }
 
 /**
