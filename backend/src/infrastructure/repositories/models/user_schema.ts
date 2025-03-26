@@ -5,6 +5,7 @@ import { UserRole } from '../../../domain/auth/entities';
  * Interface representing a User document in MongoDB
  */
 export interface IUserDocument extends Document {
+  _id: string
   email: string;
   password: string;
   firstName: string;
