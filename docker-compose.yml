@@ -1,0 +1,92 @@
+services:
+  # Frontend Next.js application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://backend:4000
+    depends_on:
+      - backend
+    command: npm run dev
+
+  # Backend Express.js application
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/doqett
+      - JWT_SECRET=your_jwt_secret_here
+      - PORT=4000
+    depends_on:
+      - mongo
+    command: npm run dev
+
+  # MongoDB database
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  # Redis for queue processing
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  # Monitoring stack (Prometheus + Grafana)
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
+
+  # Error tracking (Sentry)
+  sentry-redis:
+    image: redis:alpine
+
+  sentry-postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: sentry
+      POSTGRES_USER: sentry
+    volumes:
+      - sentry-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mongo-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  sentry-postgres-data:
