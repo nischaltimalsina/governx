@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { ControlStatus, EvidenceStatus, EvidenceSource } from './compliance';
+import { ControlStatus, EvidenceStatus, EvidenceSource } from '../../domain/models/compliance';
 
 // Framework Schema
 export interface IFrameworkDocument extends Document {

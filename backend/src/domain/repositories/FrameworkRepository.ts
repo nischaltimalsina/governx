@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { IFrameworkRepository } from '../../domain/repositories/complianceRepository';
 import { Framework, FrameworkName, FrameworkVersion } from '../../domain/models/compliance';
 import { UniqueEntityID } from '../../domain/common/Entity';
-import { FrameworkModel, IFrameworkDocument } from '../models/complianceModels';
+import { FrameworkModel, IFrameworkDocument } from '../../infrastructure/database/complianceModels';
 
 export class MongoFrameworkRepository implements IFrameworkRepository {
   async findById(id: UniqueEntityID): Promise<Framework | null> {
