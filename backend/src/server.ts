@@ -15,12 +15,15 @@ import { MongoFrameworkRepository } from './infrastructure/repositories/framewor
 import { MongoControlRepository } from './infrastructure/repositories/control_repository';
 import { MongoEvidenceRepository } from './infrastructure/repositories/evidence_repository';
 import { MongoPolicyRepository } from './infrastructure/repositories/policy_repository';
+import { MongoRiskRepository } from './infrastructure/repositories/risk_repository';
+import { MongoRiskTreatmentRepository } from './infrastructure/repositories/risk_treatment_repository';
 
 // Import domain services
 import { AuthService } from './domain/auth/services';
 import { ComplianceService } from './domain/compliance/framework_services';
 import { EvidenceService } from './domain/compliance/evidence_service';
 import { PolicyService } from './domain/compliance/policy_service';
+import { RiskManagementService } from './domain/risk/service';
 
 // Import auth use cases
 import { RegisterUserUseCase } from './application/auth/register_user';
@@ -50,6 +53,12 @@ import { ListPoliciesUseCase } from './application/compliance/list_policies';
 import { ApprovePolicyUseCase } from './application/compliance/approve_policy';
 import { PublishPolicyUseCase } from './application/compliance/publish_policy';
 
+// Import risk use cases
+import { CreateRiskUseCase } from './application/risk/create_risk';
+import { GetRiskUseCase } from './application/risk/get_risk';
+import { ListRisksUseCase } from './application/risk/list_risks';
+import { CreateRiskTreatmentUseCase } from './application/risk/create_treatment';
+
 // Import controllers and routes
 import { AuthController } from './interfaces/api/auth_controller';
 import { createAuthRouter } from './interfaces/api/auth_routes';
@@ -57,7 +66,9 @@ import { FrameworkController } from './interfaces/api/framework_controller';
 import { ControlController } from './interfaces/api/control_controller';
 import { EvidenceController } from './interfaces/api/evidence_controller';
 import { PolicyController } from './interfaces/api/policy_controller';
+import { RiskController } from './interfaces/api/risk_controller';
 import { createComplianceRouter } from './interfaces/api/compliance_routes';
+import { createRiskRouter } from './interfaces/api/risk_routes';
 
 // Load environment variables
 dotenv.config();
@@ -87,12 +98,15 @@ const frameworkRepository = new MongoFrameworkRepository();
 const controlRepository = new MongoControlRepository();
 const evidenceRepository = new MongoEvidenceRepository();
 const policyRepository = new MongoPolicyRepository();
+const riskRepository = new MongoRiskRepository();
+const riskTreatmentRepository = new MongoRiskTreatmentRepository();
 
 // Initialize domain services
 const authService = new AuthService(userRepository, authRepository);
 const complianceService = new ComplianceService(frameworkRepository, controlRepository);
 const evidenceService = new EvidenceService(evidenceRepository, controlRepository);
 const policyService = new PolicyService(policyRepository, controlRepository);
+const riskManagementService = new RiskManagementService(riskRepository, riskTreatmentRepository);
 
 // Initialize auth use cases
 const registerUserUseCase = new RegisterUserUseCase(authService);
@@ -121,6 +135,12 @@ const getPolicyUseCase = new GetPolicyUseCase(policyRepository, controlRepositor
 const listPoliciesUseCase = new ListPoliciesUseCase(policyRepository);
 const approvePolicyUseCase = new ApprovePolicyUseCase(policyService);
 const publishPolicyUseCase = new PublishPolicyUseCase(policyService);
+
+// Initialize risk use cases
+const createRiskUseCase = new CreateRiskUseCase(riskManagementService);
+const getRiskUseCase = new GetRiskUseCase(riskRepository, riskTreatmentRepository, controlRepository, frameworkRepository);
+const listRisksUseCase = new ListRisksUseCase(riskRepository, riskTreatmentRepository);
+const createRiskTreatmentUseCase = new CreateRiskTreatmentUseCase(riskManagementService);
 
 // Initialize controllers
 const authController = new AuthController(
@@ -158,6 +178,13 @@ const policyController = new PolicyController(
   publishPolicyUseCase
 );
 
+const riskController = new RiskController(
+  createRiskUseCase,
+  getRiskUseCase,
+  listRisksUseCase,
+  createRiskTreatmentUseCase
+);
+
 // Configure routes
 app.use('/api/auth', createAuthRouter(authController, authRepository, userRepository));
 app.use('/api/compliance', createComplianceRouter(
@@ -165,6 +192,11 @@ app.use('/api/compliance', createComplianceRouter(
   controlController,
   evidenceController,
   policyController,
+  authRepository,
+  userRepository
+));
+app.use('/api/risk', createRiskRouter(
+  riskController,
   authRepository,
   userRepository
 ));
