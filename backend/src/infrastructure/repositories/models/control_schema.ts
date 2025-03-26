@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { ImplementationStatus } from '../../../domain/compliance/values';
+import { ImplementationStatus } from '../../../domain/compliance/framework_values';
 
 /**
  * Interface representing a Control document in MongoDB

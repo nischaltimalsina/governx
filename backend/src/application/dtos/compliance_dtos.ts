@@ -2,7 +2,7 @@ import {
   ImplementationStatus,
   AssessmentResult,
   EvidenceStatus
-} from '../../domain/compliance/values';
+} from '../../domain/compliance/framework_values';
 
 /**
  * Data Transfer Objects for compliance-related use cases

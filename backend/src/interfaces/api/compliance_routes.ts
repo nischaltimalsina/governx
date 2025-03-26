@@ -2,15 +2,18 @@ import { Router } from 'express';
 import { body, param, query } from 'express-validator';
 import { FrameworkController } from './framework_controller';
 import { ControlController } from './control_controller';
+import { EvidenceController } from './evidence_controller';
 import { validateRequest } from './middlewares';
 import { authMiddlewareFactory } from '../../infrastructure/auth/auth_middleware';
 import { IAuthRepository, IUserRepository } from '../../domain/auth/repositories';
 import { UserRole } from '../../domain/auth/entities';
-import { ImplementationStatus } from '../../domain/compliance/values';
+import { ImplementationStatus } from '../../domain/compliance/framework_values';
+import { createEvidenceRouter } from './evidence_routes';
 
 export const createComplianceRouter = (
   frameworkController: FrameworkController,
   controlController: ControlController,
+  evidenceController: EvidenceController,
   authRepository: IAuthRepository,
   userRepository: IUserRepository
 ): Router => {
@@ -124,6 +127,9 @@ export const createComplianceRouter = (
     ],
     controlController.updateControlImplementation
   );
+
+  // Mount evidence routes
+  router.use('/evidence', createEvidenceRouter(evidenceController, authRepository, userRepository));
 
   return router;
 };

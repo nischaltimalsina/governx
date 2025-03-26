@@ -1,7 +1,7 @@
 import { Result } from '../common/result';
 import { Framework } from './framework';
 import { Control } from './control';
-import { FrameworkName, FrameworkVersion, ControlCode } from './values';
+import { FrameworkName, FrameworkVersion, ControlCode } from './framework_values';
 
 /**
  * Framework repository interface

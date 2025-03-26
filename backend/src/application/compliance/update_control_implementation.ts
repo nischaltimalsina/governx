@@ -1,5 +1,5 @@
 import { Result } from '../../domain/common/result';
-import { ComplianceService } from '../../domain/compliance/services';
+import { ComplianceService } from '../../domain/compliance/framework_services';
 import { UpdateControlImplementationDTO, ControlDTO } from '../dtos/compliance_dtos';
 
 /**

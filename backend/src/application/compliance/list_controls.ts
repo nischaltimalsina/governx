@@ -1,5 +1,5 @@
 import { Result } from '../../domain/common/result';
-import { IControlRepository } from '../../domain/compliance/repositories';
+import { IControlRepository } from '../../domain/compliance/framework_repository';
 import { ControlListItemDTO, ControlFilterOptionsDTO } from '../dtos/compliance_dtos';
 
 /**

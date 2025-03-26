@@ -1,6 +1,6 @@
 import { Result } from '../../domain/common/result';
-import { IFrameworkRepository } from '../../domain/compliance/repositories';
-import { IControlRepository } from '../../domain/compliance/repositories';
+import { IFrameworkRepository } from '../../domain/compliance/framework_repository';
+import { IControlRepository } from '../../domain/compliance/framework_repository';
 import { FrameworkDTO } from '../dtos/compliance_dtos';
 
 /**

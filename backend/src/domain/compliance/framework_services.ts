@@ -8,8 +8,8 @@ import {
   ControlCode,
   ControlTitle,
   ImplementationStatus
-} from './values';
-import { IFrameworkRepository, IControlRepository } from './repositories';
+} from './framework_values';
+import { IFrameworkRepository, IControlRepository } from './framework_repository';
 
 /**
  * Compliance management service

@@ -1,6 +1,6 @@
 import { Result } from '../../domain/common/result';
-import { FrameworkName, FrameworkVersion } from '../../domain/compliance/values';
-import { ComplianceService } from '../../domain/compliance/services';
+import { FrameworkName, FrameworkVersion } from '../../domain/compliance/framework_values';
+import { ComplianceService } from '../../domain/compliance/framework_services';
 import { CreateFrameworkDTO, FrameworkDTO } from '../dtos/compliance_dtos';
 
 /**

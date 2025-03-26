@@ -1,6 +1,6 @@
-import { IFrameworkRepository } from '../../domain/compliance/repositories';
+import { IFrameworkRepository } from '../../domain/compliance/framework_repository';
 import { Framework } from '../../domain/compliance/framework';
-import { FrameworkName, FrameworkVersion } from '../../domain/compliance/values';
+import { FrameworkName, FrameworkVersion } from '../../domain/compliance/framework_values';
 import { Result } from '../../domain/common/result';
 import { FrameworkModel, IFrameworkDocument } from './models/framework_schema';
 

@@ -1,6 +1,6 @@
 import { Entity } from '../common/entity';
 import { Result } from '../common/result';
-import { ControlCode, ControlTitle, ImplementationStatus } from './values';
+import { ControlCode, ControlTitle, ImplementationStatus } from './framework_values';
 
 /**
  * Control properties interface

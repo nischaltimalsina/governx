@@ -1,6 +1,6 @@
-import { IControlRepository } from '../../domain/compliance/repositories';
+import { IControlRepository } from '../../domain/compliance/framework_repository';
 import { Control } from '../../domain/compliance/control';
-import { ControlCode, ControlTitle, ImplementationStatus } from '../../domain/compliance/values';
+import { ControlCode, ControlTitle, ImplementationStatus } from '../../domain/compliance/framework_values';
 import { Result } from '../../domain/common/result';
 import { ControlModel, IControlDocument } from './models/control_schema';
 

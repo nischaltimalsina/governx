@@ -1,7 +1,7 @@
 import { Result } from '../../domain/common/result';
-import { IFrameworkRepository, IControlRepository } from '../../domain/compliance/repositories';
+import { IFrameworkRepository, IControlRepository } from '../../domain/compliance/framework_repository';
 import { FrameworkListItemDTO } from '../dtos/compliance_dtos';
-import { ImplementationStatus } from '../../domain/compliance/values';
+import { ImplementationStatus } from '../../domain/compliance/framework_values';
 
 /**
  * Use case for listing compliance frameworks

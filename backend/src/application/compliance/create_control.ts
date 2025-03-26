@@ -1,6 +1,6 @@
 import { Result } from '../../domain/common/result';
-import { ControlCode, ControlTitle } from '../../domain/compliance/values';
-import { ComplianceService } from '../../domain/compliance/services';
+import { ControlCode, ControlTitle } from '../../domain/compliance/framework_values';
+import { ComplianceService } from '../../domain/compliance/framework_services';
 import { CreateControlDTO, ControlDTO } from '../dtos/compliance_dtos';
 
 /**

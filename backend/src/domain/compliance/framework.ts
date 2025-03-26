@@ -1,6 +1,6 @@
 import { Entity } from '../common/entity';
 import { Result } from '../common/result';
-import { FrameworkName, FrameworkVersion } from './values';
+import { FrameworkName, FrameworkVersion } from './framework_values';
 
 /**
  * Framework properties interface

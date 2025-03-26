@@ -4,6 +4,7 @@ import mongoose, { Schema, Document } from 'mongoose';
  * Interface representing a Framework document in MongoDB
  */
 export interface IFrameworkDocument extends Document {
+  _id: string;
   name: string;
   version: string;
   description: string;

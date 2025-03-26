@@ -3,7 +3,7 @@ import { CreateControlUseCase } from '../../application/compliance/create_contro
 import { GetControlUseCase } from '../../application/compliance/get_control';
 import { ListControlsUseCase } from '../../application/compliance/list_controls';
 import { UpdateControlImplementationUseCase } from '../../application/compliance/update_control_implementation';
-import { ImplementationStatus } from '../../domain/compliance/values';
+import { ImplementationStatus } from '../../domain/compliance/framework_values';
 
 /**
  * Controller for control-related endpoints
