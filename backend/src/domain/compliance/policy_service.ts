@@ -1,16 +1,16 @@
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 import { Result } from '../common/result';
+import { IControlRepository } from './framework_repository';
 import { Policy } from './policy';
 import { IPolicyRepository } from './policy_repository';
-import { IControlRepository } from './framework_repository';
 import {
-  PolicyName,
-  PolicyVersion,
-  PolicyType,
-  PolicyStatus,
-  PolicyFormat,
+  EffectiveDate,
   PolicyApprover,
-  EffectiveDate
+  PolicyFormat,
+  PolicyName,
+  PolicyStatus,
+  PolicyType,
+  PolicyVersion
 } from './policy_values';
 
 /**
@@ -108,7 +108,7 @@ export class PolicyService {
     }
 
     // Create policy entity
-    const policyId = uuidv4();
+    const policyId = new mongoose.Types.ObjectId().toString()
     const policyResult = Policy.create(policyId, {
       name,
       version,
@@ -177,7 +177,7 @@ export class PolicyService {
     const nextVersion = nextVersionResult.getValue();
 
     // Create new policy entity with incremented version
-    const newPolicyId = uuidv4();
+    const newPolicyId = new mongoose.Types.ObjectId().toString()
     const policyResult = Policy.create(newPolicyId, {
       name: existingPolicy.name,
       version: nextVersion,

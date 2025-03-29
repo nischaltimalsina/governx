@@ -1,19 +1,19 @@
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 import { Result } from '../common/result';
+import { IRiskRepository, IRiskTreatmentRepository } from './repositories';
 import { Risk } from './risk';
 import { RiskTreatment } from './risk_treatment';
-import { IRiskRepository, IRiskTreatmentRepository } from './repositories';
 import {
-  RiskName,
+  ReviewPeriod,
   RiskCategory,
-  RiskStatus,
   RiskImpact,
   RiskLikelihood,
+  RiskName,
   RiskOwner,
-  ReviewPeriod,
-  TreatmentType,
+  RiskSeverity,
+  RiskStatus,
   TreatmentStatus,
-  RiskSeverity
+  TreatmentType
 } from './risk_values';
 
 /**
@@ -37,30 +37,30 @@ export class RiskManagementService {
     inherentLikelihood: RiskLikelihood,
     userId: string,
     options?: {
-      residualImpact?: RiskImpact;
-      residualLikelihood?: RiskLikelihood;
-      owner?: RiskOwner;
-      relatedControlIds?: string[];
-      relatedAssets?: string[];
-      reviewPeriodMonths?: number;
-      tags?: string[];
+      residualImpact?: RiskImpact
+      residualLikelihood?: RiskLikelihood
+      owner?: RiskOwner
+      relatedControlIds?: string[]
+      relatedAssets?: string[]
+      reviewPeriodMonths?: number
+      tags?: string[]
     }
   ): Promise<Result<Risk, Error>> {
     // Create review period if months are provided
-    let reviewPeriod: ReviewPeriod | undefined;
+    let reviewPeriod: ReviewPeriod | undefined
 
     if (options?.reviewPeriodMonths) {
-      const reviewPeriodResult = ReviewPeriod.create(options.reviewPeriodMonths);
+      const reviewPeriodResult = ReviewPeriod.create(options.reviewPeriodMonths)
 
       if (!reviewPeriodResult.isSuccess) {
-        return Result.fail<Risk>(reviewPeriodResult.getError());
+        return Result.fail<Risk>(reviewPeriodResult.getError())
       }
 
-      reviewPeriod = reviewPeriodResult.getValue();
+      reviewPeriod = reviewPeriodResult.getValue()
     }
 
     // Create risk entity
-    const riskId = uuidv4();
+    const riskId = new mongoose.Types.ObjectId().toString()
     const riskResult = Risk.create(riskId, {
       name,
       description,
@@ -74,23 +74,23 @@ export class RiskManagementService {
       relatedAssets: options?.relatedAssets,
       reviewPeriod,
       tags: options?.tags,
-      createdBy: userId
-    });
+      createdBy: userId,
+    })
 
     if (!riskResult.isSuccess) {
-      return Result.fail<Risk>(riskResult.getError());
+      return Result.fail<Risk>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     // Save risk to repository
-    const saveResult = await this.riskRepository.save(risk);
+    const saveResult = await this.riskRepository.save(risk)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Risk>(saveResult.getError());
+      return Result.fail<Risk>(saveResult.getError())
     }
 
-    return Result.ok<Risk>(risk);
+    return Result.ok<Risk>(risk)
   }
 
   /**
@@ -105,50 +105,42 @@ export class RiskManagementService {
     userId: string
   ): Promise<Result<Risk, Error>> {
     // Find risk
-    const riskResult = await this.riskRepository.findById(riskId);
+    const riskResult = await this.riskRepository.findById(riskId)
 
     if (!riskResult.isSuccess) {
-      return Result.fail<Risk>(riskResult.getError());
+      return Result.fail<Risk>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     if (!risk) {
-      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`));
+      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`))
     }
 
     // Update inherent risk
-    const inherentResult = risk.updateInherentRisk(
-      inherentImpact,
-      inherentLikelihood,
-      userId
-    );
+    const inherentResult = risk.updateInherentRisk(inherentImpact, inherentLikelihood, userId)
 
     if (!inherentResult.isSuccess) {
-      return Result.fail<Risk>(inherentResult.getError());
+      return Result.fail<Risk>(inherentResult.getError())
     }
 
     // Update residual risk if provided
     if (residualImpact && residualLikelihood) {
-      const residualResult = risk.updateResidualRisk(
-        residualImpact,
-        residualLikelihood,
-        userId
-      );
+      const residualResult = risk.updateResidualRisk(residualImpact, residualLikelihood, userId)
 
       if (!residualResult.isSuccess) {
-        return Result.fail<Risk>(residualResult.getError());
+        return Result.fail<Risk>(residualResult.getError())
       }
     }
 
     // Save updated risk
-    const saveResult = await this.riskRepository.save(risk);
+    const saveResult = await this.riskRepository.save(risk)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Risk>(saveResult.getError());
+      return Result.fail<Risk>(saveResult.getError())
     }
 
-    return Result.ok<Risk>(risk);
+    return Result.ok<Risk>(risk)
   }
 
   /**
@@ -162,44 +154,40 @@ export class RiskManagementService {
     userId: string
   ): Promise<Result<Risk, Error>> {
     // Find risk
-    const riskResult = await this.riskRepository.findById(riskId);
+    const riskResult = await this.riskRepository.findById(riskId)
 
     if (!riskResult.isSuccess) {
-      return Result.fail<Risk>(riskResult.getError());
+      return Result.fail<Risk>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     if (!risk) {
-      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`));
+      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`))
     }
 
     // Create owner
-    const ownerResult = RiskOwner.create(
-      ownerId,
-      ownerName,
-      ownerDepartment
-    );
+    const ownerResult = RiskOwner.create(ownerId, ownerName, ownerDepartment)
 
     if (!ownerResult.isSuccess) {
-      return Result.fail<Risk>(ownerResult.getError());
+      return Result.fail<Risk>(ownerResult.getError())
     }
 
     // Assign owner to risk
-    const assignResult = risk.assignOwner(ownerResult.getValue(), userId);
+    const assignResult = risk.assignOwner(ownerResult.getValue(), userId)
 
     if (!assignResult.isSuccess) {
-      return Result.fail<Risk>(assignResult.getError());
+      return Result.fail<Risk>(assignResult.getError())
     }
 
     // Save updated risk
-    const saveResult = await this.riskRepository.save(risk);
+    const saveResult = await this.riskRepository.save(risk)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Risk>(saveResult.getError());
+      return Result.fail<Risk>(saveResult.getError())
     }
 
-    return Result.ok<Risk>(risk);
+    return Result.ok<Risk>(risk)
   }
 
   /**
@@ -211,77 +199,74 @@ export class RiskManagementService {
     userId: string
   ): Promise<Result<Risk, Error>> {
     // Find risk
-    const riskResult = await this.riskRepository.findById(riskId);
+    const riskResult = await this.riskRepository.findById(riskId)
 
     if (!riskResult.isSuccess) {
-      return Result.fail<Risk>(riskResult.getError());
+      return Result.fail<Risk>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     if (!risk) {
-      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`));
+      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`))
     }
 
     // Create review period
-    const reviewPeriodResult = ReviewPeriod.create(months);
+    const reviewPeriodResult = ReviewPeriod.create(months)
 
     if (!reviewPeriodResult.isSuccess) {
-      return Result.fail<Risk>(reviewPeriodResult.getError());
+      return Result.fail<Risk>(reviewPeriodResult.getError())
     }
 
     // Set review period for risk
-    const setResult = risk.setReviewPeriod(reviewPeriodResult.getValue(), userId);
+    const setResult = risk.setReviewPeriod(reviewPeriodResult.getValue(), userId)
 
     if (!setResult.isSuccess) {
-      return Result.fail<Risk>(setResult.getError());
+      return Result.fail<Risk>(setResult.getError())
     }
 
     // Save updated risk
-    const saveResult = await this.riskRepository.save(risk);
+    const saveResult = await this.riskRepository.save(risk)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Risk>(saveResult.getError());
+      return Result.fail<Risk>(saveResult.getError())
     }
 
-    return Result.ok<Risk>(risk);
+    return Result.ok<Risk>(risk)
   }
 
   /**
    * Mark a risk as reviewed
    */
-  public async markRiskReviewed(
-    riskId: string,
-    userId: string
-  ): Promise<Result<Risk, Error>> {
+  public async markRiskReviewed(riskId: string, userId: string): Promise<Result<Risk, Error>> {
     // Find risk
-    const riskResult = await this.riskRepository.findById(riskId);
+    const riskResult = await this.riskRepository.findById(riskId)
 
     if (!riskResult.isSuccess) {
-      return Result.fail<Risk>(riskResult.getError());
+      return Result.fail<Risk>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     if (!risk) {
-      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`));
+      return Result.fail<Risk>(new Error(`Risk with ID ${riskId} not found`))
     }
 
     // Mark risk as reviewed
-    const reviewResult = risk.markReviewed(new Date(), userId);
+    const reviewResult = risk.markReviewed(new Date(), userId)
 
     if (!reviewResult.isSuccess) {
-      return Result.fail<Risk>(reviewResult.getError());
+      return Result.fail<Risk>(reviewResult.getError())
     }
 
     // Save updated risk
-    const saveResult = await this.riskRepository.save(risk);
+    const saveResult = await this.riskRepository.save(risk)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Risk>(saveResult.getError());
+      return Result.fail<Risk>(saveResult.getError())
     }
 
-    return Result.ok<Risk>(risk);
+    return Result.ok<Risk>(risk)
   }
 
   /**
@@ -294,28 +279,28 @@ export class RiskManagementService {
     type: TreatmentType,
     userId: string,
     options?: {
-      status?: TreatmentStatus;
-      dueDate?: Date;
-      assignee?: string;
-      cost?: number;
-      relatedControlIds?: string[];
+      status?: TreatmentStatus
+      dueDate?: Date
+      assignee?: string
+      cost?: number
+      relatedControlIds?: string[]
     }
   ): Promise<Result<RiskTreatment, Error>> {
     // Verify risk exists
-    const riskResult = await this.riskRepository.findById(riskId);
+    const riskResult = await this.riskRepository.findById(riskId)
 
     if (!riskResult.isSuccess) {
-      return Result.fail<RiskTreatment>(riskResult.getError());
+      return Result.fail<RiskTreatment>(riskResult.getError())
     }
 
-    const risk = riskResult.getValue();
+    const risk = riskResult.getValue()
 
     if (!risk) {
-      return Result.fail<RiskTreatment>(new Error(`Risk with ID ${riskId} not found`));
+      return Result.fail<RiskTreatment>(new Error(`Risk with ID ${riskId} not found`))
     }
 
     // Create treatment entity
-    const treatmentId = uuidv4();
+    const treatmentId = new mongoose.Types.ObjectId().toString()
     const treatmentResult = RiskTreatment.create(treatmentId, {
       riskId,
       name,
@@ -326,29 +311,29 @@ export class RiskManagementService {
       assignee: options?.assignee,
       cost: options?.cost,
       relatedControlIds: options?.relatedControlIds,
-      createdBy: userId
-    });
+      createdBy: userId,
+    })
 
     if (!treatmentResult.isSuccess) {
-      return Result.fail<RiskTreatment>(treatmentResult.getError());
+      return Result.fail<RiskTreatment>(treatmentResult.getError())
     }
 
-    const treatment = treatmentResult.getValue();
+    const treatment = treatmentResult.getValue()
 
     // Save treatment to repository
-    const saveResult = await this.riskTreatmentRepository.save(treatment);
+    const saveResult = await this.riskTreatmentRepository.save(treatment)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<RiskTreatment>(saveResult.getError());
+      return Result.fail<RiskTreatment>(saveResult.getError())
     }
 
     // Update risk status if needed
     if (risk.status === RiskStatus.ASSESSED || risk.status === RiskStatus.IDENTIFIED) {
-      risk.updateStatus(RiskStatus.MITIGATING, userId);
-      await this.riskRepository.save(risk);
+      risk.updateStatus(RiskStatus.MITIGATING, userId)
+      await this.riskRepository.save(risk)
     }
 
-    return Result.ok<RiskTreatment>(treatment);
+    return Result.ok<RiskTreatment>(treatment)
   }
 
   /**
@@ -360,91 +345,96 @@ export class RiskManagementService {
     userId: string
   ): Promise<Result<RiskTreatment, Error>> {
     // Find treatment
-    const treatmentResult = await this.riskTreatmentRepository.findById(treatmentId);
+    const treatmentResult = await this.riskTreatmentRepository.findById(treatmentId)
 
     if (!treatmentResult.isSuccess) {
-      return Result.fail<RiskTreatment>(treatmentResult.getError());
+      return Result.fail<RiskTreatment>(treatmentResult.getError())
     }
 
-    const treatment = treatmentResult.getValue();
+    const treatment = treatmentResult.getValue()
 
     if (!treatment) {
-      return Result.fail<RiskTreatment>(new Error(`Treatment with ID ${treatmentId} not found`));
+      return Result.fail<RiskTreatment>(new Error(`Treatment with ID ${treatmentId} not found`))
     }
 
     // Update treatment status
-    const updateResult = treatment.updateStatus(status, userId);
+    const updateResult = treatment.updateStatus(status, userId)
 
     if (!updateResult.isSuccess) {
-      return Result.fail<RiskTreatment>(updateResult.getError());
+      return Result.fail<RiskTreatment>(updateResult.getError())
     }
 
     // Save updated treatment
-    const saveResult = await this.riskTreatmentRepository.save(treatment);
+    const saveResult = await this.riskTreatmentRepository.save(treatment)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<RiskTreatment>(saveResult.getError());
+      return Result.fail<RiskTreatment>(saveResult.getError())
     }
 
     // Update risk status if needed
-    const riskResult = await this.riskRepository.findById(treatment.riskId);
+    const riskResult = await this.riskRepository.findById(treatment.riskId)
 
     if (riskResult.isSuccess && riskResult.getValue()) {
-      const risk = riskResult.getValue();
-      let updateRiskStatus = false;
-      let newStatus: RiskStatus | undefined;
+      const risk = riskResult.getValue()
+      let updateRiskStatus = false
+      let newStatus: RiskStatus | undefined
 
       // If treatment is verified and it's a mitigation treatment
       if (status === TreatmentStatus.VERIFIED && treatment.type === TreatmentType.MITIGATE) {
         // Check if all other treatments for this risk are also verified or cancelled
-        const treatmentsResult = await this.riskTreatmentRepository.findByRiskId(
-          treatment.riskId,
-          { active: true }
-        );
+        const treatmentsResult = await this.riskTreatmentRepository.findByRiskId(treatment.riskId, {
+          active: true,
+        })
 
         if (treatmentsResult.isSuccess) {
-          const allTreatments = treatmentsResult.getValue();
-          const allCompleted = allTreatments.every(t =>
-            t.status === TreatmentStatus.VERIFIED ||
-            t.status === TreatmentStatus.CANCELLED);
+          const allTreatments = treatmentsResult.getValue()
+          const allCompleted = allTreatments.every(
+            (t) => t.status === TreatmentStatus.VERIFIED || t.status === TreatmentStatus.CANCELLED
+          )
 
           if (allCompleted && risk?.residualRiskScore) {
-            updateRiskStatus = true;
-            newStatus = RiskStatus.MITIGATING;
+            updateRiskStatus = true
+            newStatus = RiskStatus.MITIGATING
           }
         }
       }
 
       // If treatment status is completed and it's an acceptance treatment
-      if ((status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
-          treatment.type === TreatmentType.ACCEPT) {
-        updateRiskStatus = true;
-        newStatus = RiskStatus.ACCEPTED;
+      if (
+        (status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
+        treatment.type === TreatmentType.ACCEPT
+      ) {
+        updateRiskStatus = true
+        newStatus = RiskStatus.ACCEPTED
       }
 
       // If treatment status is completed and it's a transfer treatment
-      if ((status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
-          treatment.type === TreatmentType.TRANSFER) {
-        updateRiskStatus = true;
-        newStatus = RiskStatus.TRANSFERRED;
+      if (
+        (status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
+        treatment.type === TreatmentType.TRANSFER
+      ) {
+        updateRiskStatus = true
+        newStatus = RiskStatus.TRANSFERRED
       }
 
       // If treatment status is completed and it's an avoidance treatment
-      if ((status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
-          treatment.type === TreatmentType.AVOID) {
-        updateRiskStatus = true;
-        newStatus = RiskStatus.AVOIDED;
+      if (
+        (status === TreatmentStatus.IMPLEMENTED || status === TreatmentStatus.VERIFIED) &&
+        treatment.type === TreatmentType.AVOID
+      ) {
+        updateRiskStatus = true
+        newStatus = RiskStatus.AVOIDED
       }
 
       if (updateRiskStatus && newStatus) {
         if (risk) {
-          risk.updateStatus(newStatus, userId);
-          await this.riskRepository.save(risk);
+          risk.updateStatus(newStatus, userId)
+          await this.riskRepository.save(risk)
         }
       }
     }
 
-    return Result.ok<RiskTreatment>(treatment);
+    return Result.ok<RiskTreatment>(treatment)
   }
 
   /**
@@ -454,14 +444,14 @@ export class RiskManagementService {
     // Find risks with review due
     const risksResult = await this.riskRepository.findAll({
       reviewDue: true,
-      active: true
-    });
+      active: true,
+    })
 
     if (!risksResult.isSuccess) {
-      return Result.fail<Risk[]>(risksResult.getError());
+      return Result.fail<Risk[]>(risksResult.getError())
     }
 
-    return Result.ok<Risk[]>(risksResult.getValue());
+    return Result.ok<Risk[]>(risksResult.getValue())
   }
 
   /**
@@ -471,54 +461,59 @@ export class RiskManagementService {
     // Find treatments that are overdue
     const treatmentsResult = await this.riskTreatmentRepository.findAll({
       overdue: true,
-      active: true
-    });
+      active: true,
+    })
 
     if (!treatmentsResult.isSuccess) {
-      return Result.fail<RiskTreatment[]>(treatmentsResult.getError());
+      return Result.fail<RiskTreatment[]>(treatmentsResult.getError())
     }
 
-    return Result.ok<RiskTreatment[]>(treatmentsResult.getValue());
+    return Result.ok<RiskTreatment[]>(treatmentsResult.getValue())
   }
 
   /**
    * Get risk dashboard statistics
    */
-  public async getRiskStatistics(): Promise<Result<{
-    totalRisks: number;
-    bySeverity: Record<RiskSeverity, number>;
-    byStatus: Record<RiskStatus, number>;
-    byCategory: Record<RiskCategory, number>;
-    treatmentProgress: {
-      total: number;
-      implemented: number;
-      inProgress: number;
-      planned: number;
-      implementationRate: number;
-    };
-  }, Error>> {
+  public async getRiskStatistics(): Promise<
+    Result<
+      {
+        totalRisks: number
+        bySeverity: Record<RiskSeverity, number>
+        byStatus: Record<RiskStatus, number>
+        byCategory: Record<RiskCategory, number>
+        treatmentProgress: {
+          total: number
+          implemented: number
+          inProgress: number
+          planned: number
+          implementationRate: number
+        }
+      },
+      Error
+    >
+  > {
     try {
       // Get total risks
-      const totalResult = await this.riskRepository.count({ active: true });
+      const totalResult = await this.riskRepository.count({ active: true })
       if (!totalResult.isSuccess) {
-        return Result.fail(totalResult.getError());
+        return Result.fail(totalResult.getError())
       }
-      const totalRisks = totalResult.getValue();
+      const totalRisks = totalResult.getValue()
 
       // Initialize empty statistics objects
-      const bySeverity: Partial<Record<RiskSeverity, number>> = {};
-      const byStatus: Partial<Record<RiskStatus, number>> = {};
-      const byCategory: Partial<Record<RiskCategory, number>> = {};
+      const bySeverity: Partial<Record<RiskSeverity, number>> = {}
+      const byStatus: Partial<Record<RiskStatus, number>> = {}
+      const byCategory: Partial<Record<RiskCategory, number>> = {}
 
       // Get risks by severity
       for (const severity of Object.values(RiskSeverity)) {
         const countResult = await this.riskRepository.count({
           severities: [severity],
-          active: true
-        });
+          active: true,
+        })
 
         if (countResult.isSuccess) {
-          bySeverity[severity] = countResult.getValue();
+          bySeverity[severity] = countResult.getValue()
         }
       }
 
@@ -526,11 +521,11 @@ export class RiskManagementService {
       for (const status of Object.values(RiskStatus)) {
         const countResult = await this.riskRepository.count({
           statuses: [status],
-          active: true
-        });
+          active: true,
+        })
 
         if (countResult.isSuccess) {
-          byStatus[status] = countResult.getValue();
+          byStatus[status] = countResult.getValue()
         }
       }
 
@@ -538,43 +533,46 @@ export class RiskManagementService {
       for (const category of Object.values(RiskCategory)) {
         const countResult = await this.riskRepository.count({
           categories: [category],
-          active: true
-        });
+          active: true,
+        })
 
         if (countResult.isSuccess) {
-          byCategory[category] = countResult.getValue();
+          byCategory[category] = countResult.getValue()
         }
       }
 
       // Get treatment statistics
-      const totalTreatmentsResult = await this.riskTreatmentRepository.count({ active: true });
+      const totalTreatmentsResult = await this.riskTreatmentRepository.count({ active: true })
       const implementedResult = await this.riskTreatmentRepository.count({
         statuses: [TreatmentStatus.IMPLEMENTED, TreatmentStatus.VERIFIED],
-        active: true
-      });
+        active: true,
+      })
       const inProgressResult = await this.riskTreatmentRepository.count({
         statuses: [TreatmentStatus.IN_PROGRESS],
-        active: true
-      });
+        active: true,
+      })
       const plannedResult = await this.riskTreatmentRepository.count({
         statuses: [TreatmentStatus.PLANNED],
-        active: true
-      });
+        active: true,
+      })
 
-      if (!totalTreatmentsResult.isSuccess || !implementedResult.isSuccess ||
-          !inProgressResult.isSuccess || !plannedResult.isSuccess) {
-        return Result.fail(new Error('Failed to get treatment statistics'));
+      if (
+        !totalTreatmentsResult.isSuccess ||
+        !implementedResult.isSuccess ||
+        !inProgressResult.isSuccess ||
+        !plannedResult.isSuccess
+      ) {
+        return Result.fail(new Error('Failed to get treatment statistics'))
       }
 
-      const totalTreatments = totalTreatmentsResult.getValue();
-      const implementedTreatments = implementedResult.getValue();
-      const inProgressTreatments = inProgressResult.getValue();
-      const plannedTreatments = plannedResult.getValue();
+      const totalTreatments = totalTreatmentsResult.getValue()
+      const implementedTreatments = implementedResult.getValue()
+      const inProgressTreatments = inProgressResult.getValue()
+      const plannedTreatments = plannedResult.getValue()
 
       // Calculate implementation rate
-      const implementationRate = totalTreatments > 0
-        ? (implementedTreatments / totalTreatments) * 100
-        : 0;
+      const implementationRate =
+        totalTreatments > 0 ? (implementedTreatments / totalTreatments) * 100 : 0
 
       return Result.ok({
         totalRisks,
@@ -586,15 +584,13 @@ export class RiskManagementService {
           implemented: implementedTreatments,
           inProgress: inProgressTreatments,
           planned: plannedTreatments,
-          implementationRate
-        }
-      });
+          implementationRate,
+        },
+      })
     } catch (error) {
       return Result.fail(
-        error instanceof Error
-          ? error
-          : new Error('Error getting risk statistics')
-      );
+        error instanceof Error ? error : new Error('Error getting risk statistics')
+      )
     }
   }
 }

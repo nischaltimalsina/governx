@@ -1,20 +1,20 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import { UserRole } from '../../../domain/auth/entities';
+import mongoose, { Schema, Document, ObjectId } from 'mongoose'
+import { UserRole } from '../../../domain/auth/entities'
 
 /**
  * Interface representing a User document in MongoDB
  */
 export interface IUserDocument extends Document {
-  _id: string
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  roles: UserRole[];
-  isActive: boolean;
-  lastLogin?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  _id: ObjectId
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  roles: UserRole[]
+  isActive: boolean
+  lastLogin?: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 /**
@@ -60,10 +60,10 @@ const UserSchema = new Schema<IUserDocument>(
   {
     timestamps: true, // Adds createdAt and updatedAt fields
   }
-);
+)
 
 // Add index for email field for faster lookups
-UserSchema.index({ email: 1 });
+UserSchema.index({ email: 1 })
 
 // Create and export the model
-export const UserModel = mongoose.model<IUserDocument>('User', UserSchema);
+export const UserModel = mongoose.model<IUserDocument>('User', UserSchema)

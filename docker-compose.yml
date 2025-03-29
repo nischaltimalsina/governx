@@ -41,7 +41,7 @@ services:
     volumes:
       - mongo-data:/data/db
     ports:
-      - "27017:27017"
+      - "27045:27017"
 
   # Redis for queue processing
   redis:

@@ -1,20 +1,20 @@
-import { v4 as uuidv4 } from 'uuid'
+import mongoose from 'mongoose'
 import { Result } from '../common/result'
-import { Report } from './report'
 import { Dashboard, DashboardWidget } from './dashboard'
 import { Metric, MetricCalculationMethod } from './metric'
+import { Report } from './report'
+import { IDashboardRepository, IMetricRepository, IReportRepository } from './reporting_repository'
 import {
-  ReportName,
-  ReportType,
-  ReportFormat,
-  ReportSchedule,
-  ReportFilter,
   DashboardName,
   DashboardType,
   MetricName,
   MetricType,
+  ReportFilter,
+  ReportFormat,
+  ReportName,
+  ReportSchedule,
+  ReportType,
 } from './reporting_values'
-import { IReportRepository, IDashboardRepository, IMetricRepository } from './reporting_repository'
 
 /**
  * Reporting service for managing reports, dashboards, and metrics
@@ -42,7 +42,7 @@ export class ReportingService {
     }
   ): Promise<Result<Report, Error>> {
     // Create report entity
-    const reportId = uuidv4()
+    const reportId = new mongoose.Types.ObjectId().toString()
     const reportResult = Report.create(reportId, {
       name,
       type,
@@ -157,7 +157,7 @@ export class ReportingService {
     }
 
     // Create dashboard entity
-    const dashboardId = uuidv4()
+    const dashboardId = new mongoose.Types.ObjectId().toString()
     const dashboardResult = Dashboard.create(dashboardId, {
       name,
       type,
@@ -203,7 +203,7 @@ export class ReportingService {
     }
   ): Promise<Result<Metric, Error>> {
     // Create metric entity
-    const metricId = uuidv4()
+    const metricId = new mongoose.Types.ObjectId().toString()
     const metricResult = Metric.create(metricId, {
       name,
       type,

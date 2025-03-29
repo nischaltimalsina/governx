@@ -13,7 +13,6 @@ import { CalculateMetricUseCase } from '../../application/reporting/calculate_me
 import {
   ReportType,
   ReportFormat,
-  ReportScheduleFrequency,
   DashboardType,
   MetricType,
 } from '../../domain/reporting/reporting_values'

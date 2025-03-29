@@ -1,17 +1,17 @@
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 import { Result } from '../common/result';
 import { Evidence } from './evidence';
 import { IEvidenceRepository } from './evidence_repository';
-import { IControlRepository } from './framework_repository';
 import {
-  EvidenceFilename,
-  EvidenceTitle,
-  EvidenceFileHash,
-  EvidenceType,
-  EvidenceStatus,
   EvidenceCollectionMethod,
+  EvidenceFileHash,
+  EvidenceFilename,
+  EvidenceStatus,
+  EvidenceTitle,
+  EvidenceType,
   EvidenceValidityPeriod
 } from './evidence_values';
+import { IControlRepository } from './framework_repository';
 
 /**
  * Evidence management service
@@ -107,7 +107,7 @@ export class EvidenceService {
     }
 
     // Create evidence entity
-    const evidenceId = uuidv4();
+    const evidenceId = new mongoose.Types.ObjectId().toString()
     const evidenceResult = Evidence.create(evidenceId, {
       title,
       controlIds,

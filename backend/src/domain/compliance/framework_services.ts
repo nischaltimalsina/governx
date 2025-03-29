@@ -1,15 +1,15 @@
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 import { Result } from '../common/result';
-import { Framework } from './framework';
 import { Control } from './control';
+import { Framework } from './framework';
+import { IControlRepository, IFrameworkRepository } from './framework_repository';
 import {
-  FrameworkName,
-  FrameworkVersion,
   ControlCode,
   ControlTitle,
+  FrameworkName,
+  FrameworkVersion,
   ImplementationStatus
 } from './framework_values';
-import { IFrameworkRepository, IControlRepository } from './framework_repository';
 
 /**
  * Compliance management service
@@ -30,27 +30,27 @@ export class ComplianceService {
     description: string,
     userId: string,
     options?: {
-      organization?: string;
-      category?: string;
-      website?: string;
-      isActive?: boolean;
+      organization?: string
+      category?: string
+      website?: string
+      isActive?: boolean
     }
   ): Promise<Result<Framework, Error>> {
     // Check if framework with this name and version already exists
-    const existsResult = await this.frameworkRepository.exists(name, version);
+    const existsResult = await this.frameworkRepository.exists(name, version)
 
     if (!existsResult.isSuccess) {
-      return Result.fail<Framework>(existsResult.getError());
+      return Result.fail<Framework>(existsResult.getError())
     }
 
     if (existsResult.getValue()) {
       return Result.fail<Framework>(
         new Error(`Framework '${name.getValue()} ${version.getValue()}' already exists`)
-      );
+      )
     }
 
     // Create framework entity
-    const frameworkId = uuidv4();
+    const frameworkId = new mongoose.Types.ObjectId().toString()
     const frameworkResult = Framework.create(frameworkId, {
       name,
       version,
@@ -59,23 +59,23 @@ export class ComplianceService {
       category: options?.category,
       website: options?.website,
       isActive: options?.isActive,
-      createdBy: userId
-    });
+      createdBy: userId,
+    })
 
     if (!frameworkResult.isSuccess) {
-      return Result.fail<Framework>(frameworkResult.getError());
+      return Result.fail<Framework>(frameworkResult.getError())
     }
 
-    const framework = frameworkResult.getValue();
+    const framework = frameworkResult.getValue()
 
     // Save framework to repository
-    const saveResult = await this.frameworkRepository.save(framework);
+    const saveResult = await this.frameworkRepository.save(framework)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Framework>(saveResult.getError());
+      return Result.fail<Framework>(saveResult.getError())
     }
 
-    return Result.ok<Framework>(framework);
+    return Result.ok<Framework>(framework)
   }
 
   /**
@@ -88,67 +88,65 @@ export class ComplianceService {
     description: string,
     userId: string,
     options?: {
-      guidance?: string;
-      implementationStatus?: ImplementationStatus;
-      implementationDetails?: string;
-      ownerId?: string;
-      categories?: string[];
-      parentControlId?: string;
-      isActive?: boolean;
+      guidance?: string
+      implementationStatus?: ImplementationStatus
+      implementationDetails?: string
+      ownerId?: string
+      categories?: string[]
+      parentControlId?: string
+      isActive?: boolean
     }
   ): Promise<Result<Control, Error>> {
     // Check if framework exists
-    const frameworkResult = await this.frameworkRepository.findById(frameworkId);
+    const frameworkResult = await this.frameworkRepository.findById(frameworkId)
 
     if (!frameworkResult.isSuccess) {
-      return Result.fail<Control>(frameworkResult.getError());
+      return Result.fail<Control>(frameworkResult.getError())
     }
 
-    const framework = frameworkResult.getValue();
+    const framework = frameworkResult.getValue()
 
     if (!framework) {
-      return Result.fail<Control>(new Error(`Framework with ID ${frameworkId} not found`));
+      return Result.fail<Control>(new Error(`Framework with ID ${frameworkId} not found`))
     }
 
     // Check if control with this code already exists in the framework
-    const existsResult = await this.controlRepository.exists(frameworkId, code);
+    const existsResult = await this.controlRepository.exists(frameworkId, code)
 
     if (!existsResult.isSuccess) {
-      return Result.fail<Control>(existsResult.getError());
+      return Result.fail<Control>(existsResult.getError())
     }
 
     if (existsResult.getValue()) {
       return Result.fail<Control>(
         new Error(`Control with code '${code.getValue()}' already exists in this framework`)
-      );
+      )
     }
 
     // If parent control ID is specified, check if it exists
     if (options?.parentControlId) {
-      const parentControlResult = await this.controlRepository.findById(options.parentControlId);
+      const parentControlResult = await this.controlRepository.findById(options.parentControlId)
 
       if (!parentControlResult.isSuccess) {
-        return Result.fail<Control>(parentControlResult.getError());
+        return Result.fail<Control>(parentControlResult.getError())
       }
 
-      const parentControl = parentControlResult.getValue();
+      const parentControl = parentControlResult.getValue()
 
       if (!parentControl) {
         return Result.fail<Control>(
           new Error(`Parent control with ID ${options.parentControlId} not found`)
-        );
+        )
       }
 
       // Check if parent control belongs to the same framework
       if (parentControl.frameworkId !== frameworkId) {
-        return Result.fail<Control>(
-          new Error('Parent control must belong to the same framework')
-        );
+        return Result.fail<Control>(new Error('Parent control must belong to the same framework'))
       }
     }
 
     // Create control entity
-    const controlId = uuidv4();
+    const controlId = new mongoose.Types.ObjectId().toString()
     const controlResult = Control.create(controlId, {
       frameworkId,
       code,
@@ -161,23 +159,23 @@ export class ComplianceService {
       categories: options?.categories,
       parentControlId: options?.parentControlId,
       isActive: options?.isActive,
-      createdBy: userId
-    });
+      createdBy: userId,
+    })
 
     if (!controlResult.isSuccess) {
-      return Result.fail<Control>(controlResult.getError());
+      return Result.fail<Control>(controlResult.getError())
     }
 
-    const control = controlResult.getValue();
+    const control = controlResult.getValue()
 
     // Save control to repository
-    const saveResult = await this.controlRepository.save(control);
+    const saveResult = await this.controlRepository.save(control)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Control>(saveResult.getError());
+      return Result.fail<Control>(saveResult.getError())
     }
 
-    return Result.ok<Control>(control);
+    return Result.ok<Control>(control)
   }
 
   /**
@@ -190,16 +188,16 @@ export class ComplianceService {
     implementationDetails?: string
   ): Promise<Result<Control, Error>> {
     // Find control
-    const controlResult = await this.controlRepository.findById(controlId);
+    const controlResult = await this.controlRepository.findById(controlId)
 
     if (!controlResult.isSuccess) {
-      return Result.fail<Control>(controlResult.getError());
+      return Result.fail<Control>(controlResult.getError())
     }
 
-    const control = controlResult.getValue();
+    const control = controlResult.getValue()
 
     if (!control) {
-      return Result.fail<Control>(new Error(`Control with ID ${controlId} not found`));
+      return Result.fail<Control>(new Error(`Control with ID ${controlId} not found`))
     }
 
     // Update implementation status
@@ -207,104 +205,111 @@ export class ComplianceService {
       implementationStatus,
       implementationDetails,
       userId
-    );
+    )
 
     if (!updateResult.isSuccess) {
-      return Result.fail<Control>(updateResult.getError());
+      return Result.fail<Control>(updateResult.getError())
     }
 
     // Save updated control
-    const saveResult = await this.controlRepository.save(control);
+    const saveResult = await this.controlRepository.save(control)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Control>(saveResult.getError());
+      return Result.fail<Control>(saveResult.getError())
     }
 
-    return Result.ok<Control>(control);
+    return Result.ok<Control>(control)
   }
 
   /**
    * Get compliance status metrics for a framework
    */
-  public async getFrameworkComplianceStatus(
-    frameworkId: string
-  ): Promise<Result<{
-    totalControls: number;
-    implementedControls: number;
-    partiallyImplementedControls: number;
-    notImplementedControls: number;
-    notApplicableControls: number;
-    implementationRate: number;
-  }, Error>> {
+  public async getFrameworkComplianceStatus(frameworkId: string): Promise<
+    Result<
+      {
+        totalControls: number
+        implementedControls: number
+        partiallyImplementedControls: number
+        notImplementedControls: number
+        notApplicableControls: number
+        implementationRate: number
+      },
+      Error
+    >
+  > {
     // Check if framework exists
-    const frameworkResult = await this.frameworkRepository.findById(frameworkId);
+    const frameworkResult = await this.frameworkRepository.findById(frameworkId)
 
     if (!frameworkResult.isSuccess) {
-      return Result.fail(frameworkResult.getError());
+      return Result.fail(frameworkResult.getError())
     }
 
-    const framework = frameworkResult.getValue();
+    const framework = frameworkResult.getValue()
 
     if (!framework) {
-      return Result.fail(new Error(`Framework with ID ${frameworkId} not found`));
+      return Result.fail(new Error(`Framework with ID ${frameworkId} not found`))
     }
 
     // Count controls by implementation status
     const totalResult = await this.controlRepository.countByFrameworkId(frameworkId, {
-      active: true
-    });
+      active: true,
+    })
 
     if (!totalResult.isSuccess) {
-      return Result.fail(totalResult.getError());
+      return Result.fail(totalResult.getError())
     }
 
     const implementedResult = await this.controlRepository.countByFrameworkId(frameworkId, {
       implementationStatus: [ImplementationStatus.IMPLEMENTED],
-      active: true
-    });
+      active: true,
+    })
 
     if (!implementedResult.isSuccess) {
-      return Result.fail(implementedResult.getError());
+      return Result.fail(implementedResult.getError())
     }
 
-    const partiallyImplementedResult = await this.controlRepository.countByFrameworkId(frameworkId, {
-      implementationStatus: [ImplementationStatus.PARTIALLY_IMPLEMENTED],
-      active: true
-    });
+    const partiallyImplementedResult = await this.controlRepository.countByFrameworkId(
+      frameworkId,
+      {
+        implementationStatus: [ImplementationStatus.PARTIALLY_IMPLEMENTED],
+        active: true,
+      }
+    )
 
     if (!partiallyImplementedResult.isSuccess) {
-      return Result.fail(partiallyImplementedResult.getError());
+      return Result.fail(partiallyImplementedResult.getError())
     }
 
     const notImplementedResult = await this.controlRepository.countByFrameworkId(frameworkId, {
       implementationStatus: [ImplementationStatus.NOT_IMPLEMENTED],
-      active: true
-    });
+      active: true,
+    })
 
     if (!notImplementedResult.isSuccess) {
-      return Result.fail(notImplementedResult.getError());
+      return Result.fail(notImplementedResult.getError())
     }
 
     const notApplicableResult = await this.controlRepository.countByFrameworkId(frameworkId, {
       implementationStatus: [ImplementationStatus.NOT_APPLICABLE],
-      active: true
-    });
+      active: true,
+    })
 
     if (!notApplicableResult.isSuccess) {
-      return Result.fail(notApplicableResult.getError());
+      return Result.fail(notApplicableResult.getError())
     }
 
-    const totalControls = totalResult.getValue();
-    const implementedControls = implementedResult.getValue();
-    const partiallyImplementedControls = partiallyImplementedResult.getValue();
-    const notImplementedControls = notImplementedResult.getValue();
-    const notApplicableControls = notApplicableResult.getValue();
+    const totalControls = totalResult.getValue()
+    const implementedControls = implementedResult.getValue()
+    const partiallyImplementedControls = partiallyImplementedResult.getValue()
+    const notImplementedControls = notImplementedResult.getValue()
+    const notApplicableControls = notApplicableResult.getValue()
 
     // Calculate implementation rate (excluding N/A controls)
-    const applicableControls = totalControls - notApplicableControls;
-    const implementationRate = applicableControls > 0
-      ? (implementedControls + (partiallyImplementedControls * 0.5)) / applicableControls * 100
-      : 0;
+    const applicableControls = totalControls - notApplicableControls
+    const implementationRate =
+      applicableControls > 0
+        ? ((implementedControls + partiallyImplementedControls * 0.5) / applicableControls) * 100
+        : 0
 
     return Result.ok({
       totalControls,
@@ -312,8 +317,8 @@ export class ComplianceService {
       partiallyImplementedControls,
       notImplementedControls,
       notApplicableControls,
-      implementationRate
-    });
+      implementationRate,
+    })
   }
 
   /**
@@ -325,33 +330,33 @@ export class ComplianceService {
     userId: string
   ): Promise<Result<Control, Error>> {
     // Find control
-    const controlResult = await this.controlRepository.findById(controlId);
+    const controlResult = await this.controlRepository.findById(controlId)
 
     if (!controlResult.isSuccess) {
-      return Result.fail<Control>(controlResult.getError());
+      return Result.fail<Control>(controlResult.getError())
     }
 
-    const control = controlResult.getValue();
+    const control = controlResult.getValue()
 
     if (!control) {
-      return Result.fail<Control>(new Error(`Control with ID ${controlId} not found`));
+      return Result.fail<Control>(new Error(`Control with ID ${controlId} not found`))
     }
 
     // Assign owner
-    const assignResult = control.assignOwner(ownerId, userId);
+    const assignResult = control.assignOwner(ownerId, userId)
 
     if (!assignResult.isSuccess) {
-      return Result.fail<Control>(assignResult.getError());
+      return Result.fail<Control>(assignResult.getError())
     }
 
     // Save updated control
-    const saveResult = await this.controlRepository.save(control);
+    const saveResult = await this.controlRepository.save(control)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Control>(saveResult.getError());
+      return Result.fail<Control>(saveResult.getError())
     }
 
-    return Result.ok<Control>(control);
+    return Result.ok<Control>(control)
   }
 
   /**
@@ -362,28 +367,28 @@ export class ComplianceService {
     userId: string
   ): Promise<Result<Framework, Error>> {
     // Find framework
-    const frameworkResult = await this.frameworkRepository.findById(frameworkId);
+    const frameworkResult = await this.frameworkRepository.findById(frameworkId)
 
     if (!frameworkResult.isSuccess) {
-      return Result.fail<Framework>(frameworkResult.getError());
+      return Result.fail<Framework>(frameworkResult.getError())
     }
 
-    const framework = frameworkResult.getValue();
+    const framework = frameworkResult.getValue()
 
     if (!framework) {
-      return Result.fail<Framework>(new Error(`Framework with ID ${frameworkId} not found`));
+      return Result.fail<Framework>(new Error(`Framework with ID ${frameworkId} not found`))
     }
 
     // Deactivate framework
-    framework.deactivate();
+    framework.deactivate()
 
     // Save updated framework
-    const saveResult = await this.frameworkRepository.save(framework);
+    const saveResult = await this.frameworkRepository.save(framework)
 
     if (!saveResult.isSuccess) {
-      return Result.fail<Framework>(saveResult.getError());
+      return Result.fail<Framework>(saveResult.getError())
     }
 
-    return Result.ok<Framework>(framework);
+    return Result.ok<Framework>(framework)
   }
 }

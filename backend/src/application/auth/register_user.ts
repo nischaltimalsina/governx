@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Result } from '../../domain/common/result';
 import { Email, Password } from '../../domain/auth/entities';
 import { AuthService } from '../../domain/auth/services';
 import { RegisterUserDTO, UserDTO } from '../dtos/auth_dtos';
+import mongoose from 'mongoose'
 
 /**
  * Use case for registering a new user
@@ -15,19 +15,19 @@ export class RegisterUserUseCase {
    */
   public async execute(request: RegisterUserDTO): Promise<Result<UserDTO, Error>> {
     // Create Email value object
-    const emailOrError = Email.create(request.email);
+    const emailOrError = Email.create(request.email)
     if (!emailOrError.isSuccess) {
-      return Result.fail<UserDTO>(emailOrError.getError());
+      return Result.fail<UserDTO>(emailOrError.getError())
     }
 
     // Create Password value object
-    const passwordOrError = Password.create(request.password);
+    const passwordOrError = Password.create(request.password)
     if (!passwordOrError.isSuccess) {
-      return Result.fail<UserDTO>(passwordOrError.getError());
+      return Result.fail<UserDTO>(passwordOrError.getError())
     }
 
-    // Generate a new UUID for the user
-    const userId = uuidv4();
+    // Generate a new ObjectId for the user
+    const userId = new mongoose.Types.ObjectId().toString()
 
     // Call domain service to register user
     const userResult = await this.authService.registerUser(
@@ -37,13 +37,13 @@ export class RegisterUserUseCase {
       request.firstName,
       request.lastName,
       request.roles
-    );
+    )
 
     if (!userResult.isSuccess) {
-      return Result.fail<UserDTO>(userResult.getError());
+      return Result.fail<UserDTO>(userResult.getError())
     }
 
-    const user = userResult.getValue();
+    const user = userResult.getValue()
 
     // Map domain entity to DTO
     return Result.ok<UserDTO>({
@@ -54,7 +54,7 @@ export class RegisterUserUseCase {
       fullName: user.fullName,
       roles: user.roles,
       isActive: user.isActive,
-      lastLogin: user.lastLogin
-    });
+      lastLogin: user.lastLogin,
+    })
   }
 }
