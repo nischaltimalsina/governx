@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { FindingType, FindingSeverity, FindingStatus } from '@/domain/audit/audit_values'
+import { FindingType, FindingSeverity, FindingStatus } from '../../../domain/audit/audit_values'
 
 // Define the finding document interface
 export interface IFindingDocument extends mongoose.Document {

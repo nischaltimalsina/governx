@@ -1,25 +1,30 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import { database } from './infrastructure/database';
-import { errorHandler } from './interfaces/api/middlewares';
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import morgan from 'morgan'
+import dotenv from 'dotenv'
+import fs from 'fs'
+import path from 'path'
+import { database } from './infrastructure/database'
+import { errorHandler } from './interfaces/api/middlewares'
 
 // Import repositories
-import { AuthRepository } from './infrastructure/repositories/auth_repository';
-import { MongoUserRepository } from './infrastructure/repositories/user_repository';
-import { MongoFrameworkRepository } from './infrastructure/repositories/framework_repository';
-import { MongoControlRepository } from './infrastructure/repositories/control_repository';
-import { MongoEvidenceRepository } from './infrastructure/repositories/evidence_repository';
-import { MongoPolicyRepository } from './infrastructure/repositories/policy_repository';
-import { MongoRiskRepository } from './infrastructure/repositories/risk_repository';
-import { MongoRiskTreatmentRepository } from './infrastructure/repositories/risk_treatment_repository';
+import { AuthRepository } from './infrastructure/repositories/auth_repository'
+import { MongoUserRepository } from './infrastructure/repositories/user_repository'
+import { MongoFrameworkRepository } from './infrastructure/repositories/framework_repository'
+import { MongoControlRepository } from './infrastructure/repositories/control_repository'
+import { MongoEvidenceRepository } from './infrastructure/repositories/evidence_repository'
+import { MongoPolicyRepository } from './infrastructure/repositories/policy_repository'
+import { MongoRiskRepository } from './infrastructure/repositories/risk_repository'
+import { MongoRiskTreatmentRepository } from './infrastructure/repositories/risk_treatment_repository'
 import { MongoReportRepository } from './infrastructure/repositories/report_repository'
 import { MongoDashboardRepository } from './infrastructure/repositories/dashboard_repository'
 import { MongoMetricRepository } from './infrastructure/repositories/metric_repository'
+import {
+  MongoAuditRepository,
+  MongoAuditTemplateRepository,
+} from './infrastructure/repositories/audit_repository'
+import { MongoFindingRepository } from './infrastructure/repositories/finding_repository'
 
 // Import domain services
 import { AuthService } from './domain/auth/services'
@@ -28,6 +33,7 @@ import { EvidenceService } from './domain/compliance/evidence_service'
 import { PolicyService } from './domain/compliance/policy_service'
 import { RiskManagementService } from './domain/risk/service'
 import { ReportingService } from './domain/reporting/reporting_service'
+import { AuditService } from './domain/audit/audit_service'
 
 // Import auth use cases
 import { RegisterUserUseCase } from './application/auth/register_user'
@@ -76,6 +82,23 @@ import { GetMetricUseCase } from './application/reporting/get_metric'
 import { ListMetricsUseCase } from './application/reporting/list_metrics'
 import { CalculateMetricUseCase } from './application/reporting/calculate_metric'
 
+//Import audit use cases
+import { CreateAuditUseCase } from './application/audit/create_audit'
+import { GetAuditUseCase } from './application/audit/get_audit'
+import { ListAuditsUseCase } from './application/audit/list_audits'
+import { UpdateAuditStatusUseCase } from './application/audit/update_audit_status'
+import { CreateFindingUseCase } from './application/audit/create_finding'
+import { GetFindingUseCase } from './application/audit/get_finding'
+import { ListFindingsUseCase } from './application/audit/list_findings'
+import { UpdateFindingStatusUseCase } from './application/audit/update_finding_status'
+import { AddRemediationPlanUseCase } from './application/audit/add_remediation_plan'
+import { UpdateRemediationPlanUseCase } from './application/audit/update_remediation_plan'
+
+// Import audit templates use cases
+import { CreateAuditTemplateUseCase } from './application/audit/create_audit_template'
+import { GetAuditTemplateUseCase } from './application/audit/get_audit_template'
+import { ListAuditTemplatesUseCase } from './application/audit/list_audit_templates'
+
 // Import controllers and routes
 import { AuthController } from './interfaces/api/auth_controller'
 import { createAuthRouter } from './interfaces/api/auth_routes'
@@ -88,6 +111,10 @@ import { createComplianceRouter } from './interfaces/api/compliance_routes'
 import { createRiskRouter } from './interfaces/api/risk_routes'
 import { ReportingController } from './interfaces/api/reporting_controller'
 import { createReportingRouter } from './interfaces/api/reporting_routes'
+import { AuditController } from './interfaces/api/audit_controller'
+import { createAuditRouter } from './interfaces/api/audit_routes'
+import { AuditTemplateController } from './interfaces/api/audit_template_controller'
+import { createAuditTemplateRouter } from './interfaces/api/audit_template_routes'
 
 // Load environment variables
 dotenv.config()
@@ -117,6 +144,9 @@ const evidenceRepository = new MongoEvidenceRepository()
 const policyRepository = new MongoPolicyRepository()
 const riskRepository = new MongoRiskRepository()
 const riskTreatmentRepository = new MongoRiskTreatmentRepository()
+const auditRepository = new MongoAuditRepository()
+const findingRepository = new MongoFindingRepository()
+const auditTemplateRepository = new MongoAuditTemplateRepository()
 
 // Initialize domain services
 const authService = new AuthService(userRepository, authRepository)
@@ -124,6 +154,14 @@ const complianceService = new ComplianceService(frameworkRepository, controlRepo
 const evidenceService = new EvidenceService(evidenceRepository, controlRepository)
 const policyService = new PolicyService(policyRepository, controlRepository)
 const riskManagementService = new RiskManagementService(riskRepository, riskTreatmentRepository)
+const auditService = new AuditService(
+  auditRepository,
+  findingRepository,
+  frameworkRepository,
+  controlRepository,
+  evidenceRepository,
+  auditTemplateRepository
+)
 
 // Initialize auth use cases
 const registerUserUseCase = new RegisterUserUseCase(authService)
@@ -138,6 +176,23 @@ const createControlUseCase = new CreateControlUseCase(complianceService)
 const getControlUseCase = new GetControlUseCase(controlRepository)
 const listControlsUseCase = new ListControlsUseCase(controlRepository)
 const updateControlImplementationUseCase = new UpdateControlImplementationUseCase(complianceService)
+
+// Initialize audit use cases
+const createAuditUseCase = new CreateAuditUseCase(auditService)
+const getAuditUseCase = new GetAuditUseCase(auditRepository, findingRepository)
+const listAuditsUseCase = new ListAuditsUseCase(auditRepository, findingRepository)
+const updateAuditStatusUseCase = new UpdateAuditStatusUseCase(auditService)
+const createFindingUseCase = new CreateFindingUseCase(auditService)
+const getFindingUseCase = new GetFindingUseCase(findingRepository)
+const listFindingsUseCase = new ListFindingsUseCase(findingRepository)
+const updateFindingStatusUseCase = new UpdateFindingStatusUseCase(auditService)
+const addRemediationPlanUseCase = new AddRemediationPlanUseCase(auditService)
+const updateRemediationPlanUseCase = new UpdateRemediationPlanUseCase(auditService)
+
+// Initialize audit template use cases
+const createAuditTemplateUseCase = new CreateAuditTemplateUseCase(auditService)
+const listAuditTemplatesUseCase = new ListAuditTemplatesUseCase(auditTemplateRepository)
+const getAuditTemplateUseCase = new GetAuditTemplateUseCase(auditTemplateRepository)
 
 // Initialize evidence use cases
 const createEvidenceUseCase = new CreateEvidenceUseCase(
@@ -267,6 +322,25 @@ const riskController = new RiskController(
   createRiskTreatmentUseCase
 )
 
+const auditController = new AuditController(
+  createAuditUseCase,
+  getAuditUseCase,
+  listAuditsUseCase,
+  updateAuditStatusUseCase,
+  createFindingUseCase,
+  getFindingUseCase,
+  listFindingsUseCase,
+  updateFindingStatusUseCase,
+  addRemediationPlanUseCase,
+  updateRemediationPlanUseCase
+)
+
+const auditTemplateController = new AuditTemplateController(
+  createAuditTemplateUseCase,
+  getAuditTemplateUseCase,
+  listAuditTemplatesUseCase
+)
+
 // Configure routes
 app.use('/api/auth', createAuthRouter(authController, authRepository, userRepository))
 app.use(
@@ -285,51 +359,56 @@ app.use(
   '/api/reporting',
   createReportingRouter(reportingController, authRepository, userRepository)
 )
+app.use('/api/audit', createAuditRouter(auditController, authRepository, userRepository))
+app.use(
+  '/api/audit-template',
+  createAuditTemplateRouter(auditTemplateController, authRepository, userRepository)
+)
 
 // Serve uploaded files (only in development - in production use a proper storage solution)
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'Server is running' });
-});
+  res.status(200).json({ status: 'ok', message: 'Server is running' })
+})
 
 // Error handling middleware (should be last)
-app.use(errorHandler);
+app.use(errorHandler)
 
 // Start the server
 const startServer = async () => {
   try {
     // Connect to database
-    const dbResult = await database.connect();
+    const dbResult = await database.connect()
 
     if (!dbResult.isSuccess) {
-      console.error('Failed to connect to database:', dbResult.getError().message);
-      process.exit(1);
+      console.error('Failed to connect to database:', dbResult.getError().message)
+      process.exit(1)
     }
 
     // Start HTTP server
     app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
+      console.log(`Server running on port ${port}`)
+    })
   } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
+    console.error('Failed to start server:', error)
+    process.exit(1)
   }
-};
+}
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
-  console.log('Gracefully shutting down');
-  await database.disconnect();
-  process.exit(0);
-});
+  console.log('Gracefully shutting down')
+  await database.disconnect()
+  process.exit(0)
+})
 
 process.on('SIGTERM', async () => {
-  console.log('Gracefully shutting down');
-  await database.disconnect();
-  process.exit(0);
-});
+  console.log('Gracefully shutting down')
+  await database.disconnect()
+  process.exit(0)
+})
 
 // Start the server
-startServer();
+startServer()
