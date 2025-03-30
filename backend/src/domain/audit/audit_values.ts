@@ -348,20 +348,21 @@ export class RemediationPlan {
  * AuditTemplate interface for reusable audit templates
  */
 export interface AuditTemplate {
-  id: string;
-  name: string;
-  description: string;
-  type: AuditType;
-  frameworkIds?: string[];
-  controlIds?: string[];
+  id: string
+  name: string
+  description: string
+  type: AuditType
+  frameworkIds?: string[]
+  controlIds?: string[]
   checklistItems?: {
-    id: string;
-    description: string;
-    category?: string;
-    required: boolean;
-  }[];
-  isActive: boolean;
-  createdBy: string;
-  createdAt: Date;
-  updatedAt?: Date;
+    id: string
+    description: string
+    category?: string
+    required: boolean
+  }[]
+  isActive: boolean
+  createdBy: string
+  updatedBy?: string
+  createdAt: Date
+  updatedAt?: Date
 }
