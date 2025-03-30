@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
+import mongoose, { ObjectId } from 'mongoose'
 import { FindingType, FindingSeverity, FindingStatus } from '../../../domain/audit/audit_values'
 
 // Define the finding document interface
 export interface IFindingDocument extends mongoose.Document {
-  _id: string
+  _id: ObjectId
   auditId: string
   title: string
   description: string

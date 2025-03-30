@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document, ObjectId } from 'mongoose'
 import { AuditType, AuditStatus } from '../../../domain/audit/audit_values'
 
 /**
@@ -24,7 +24,7 @@ export interface IAuditScheduleDocument {
  * Interface representing an Audit document in MongoDB
  */
 export interface IAuditDocument extends Document {
-  _id: string
+  _id: ObjectId
   name: string
   type: string
   status: string
@@ -46,7 +46,7 @@ export interface IAuditDocument extends Document {
  * Interface representing an Audit Template document in MongoDB
  */
 export interface IAuditTemplateDocument extends Document {
-  _id: string
+  _id: ObjectId
   name: string
   type: string
   description: string

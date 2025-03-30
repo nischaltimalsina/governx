@@ -361,7 +361,7 @@ app.use(
 )
 app.use('/api/audit', createAuditRouter(auditController, authRepository, userRepository))
 app.use(
-  '/api/audit-template',
+  '/api/audit-templates',
   createAuditTemplateRouter(auditTemplateController, authRepository, userRepository)
 )
 

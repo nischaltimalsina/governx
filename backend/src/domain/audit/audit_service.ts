@@ -1,25 +1,23 @@
-import { v4 as uuidv4 } from 'uuid'
+import mongoose from 'mongoose'
 import { Result } from '../common/result'
-import { Audit } from './audit'
-import { Finding } from './finding'
-import { IAuditRepository, IAuditTemplateRepository, IFindingRepository } from './repositories'
-import { IFrameworkRepository } from '../compliance/framework_repository'
-import { IControlRepository } from '../compliance/framework_repository'
 import { IEvidenceRepository } from '../compliance/evidence_repository'
+import { IControlRepository, IFrameworkRepository } from '../compliance/framework_repository'
+import { Audit } from './audit'
 import {
   AuditName,
-  AuditType,
   AuditStatus,
+  AuditTemplate,
+  AuditType,
   AuditorInfo,
-  SchedulePeriod,
-  FindingTitle,
-  FindingType,
   FindingSeverity,
   FindingStatus,
+  FindingTitle,
+  FindingType,
   RemediationPlan,
-  AuditTemplate,
+  SchedulePeriod,
 } from './audit_values'
-import mongoose from 'mongoose'
+import { Finding } from './finding'
+import { IAuditRepository, IAuditTemplateRepository, IFindingRepository } from './repositories'
 
 /**
  * Audit service for managing audits and their findings
@@ -233,7 +231,7 @@ export class AuditService {
     }
 
     // Create finding entity
-    const findingId = uuidv4()
+    const findingId = new mongoose.Types.ObjectId().toString()
     const findingResult = Finding.create(findingId, {
       auditId,
       title,
@@ -653,7 +651,7 @@ export class AuditService {
 
     // Transform checklist items if provided
     const checklistItems = options?.checklistItems?.map((item) => ({
-      id: uuidv4(),
+      id: new mongoose.Types.ObjectId().toString(),
       description: item.description,
       category: item.category,
       required: item.required,
@@ -661,7 +659,7 @@ export class AuditService {
 
     // Create template
     const template: AuditTemplate = {
-      id: uuidv4(),
+      id: new mongoose.Types.ObjectId().toString(),
       name,
       description,
       type,
