@@ -104,6 +104,31 @@ export const createAuditRouter = (
     auditController.updateAuditStatus
   )
 
+  // POST /api/audit/audits/from-template
+  router.post(
+    '/audits/from-template',
+    [
+      authenticate,
+      authorize([UserRole.ADMIN, UserRole.COMPLIANCE_MANAGER, UserRole.AUDITOR]),
+      body('templateId').isString().notEmpty().withMessage('Template ID is required'),
+      body('name').isString().notEmpty().withMessage('Audit name is required'),
+      body('leadAuditor').isObject().notEmpty().withMessage('Lead auditor is required'),
+      body('leadAuditor.id').isString().notEmpty().withMessage('Lead auditor ID is required'),
+      body('leadAuditor.name').isString().notEmpty().withMessage('Lead auditor name is required'),
+      body('leadAuditor.isExternal')
+        .isBoolean()
+        .withMessage('Lead auditor isExternal must be a boolean'),
+      body('schedule').isObject().notEmpty().withMessage('Schedule is required'),
+      body('schedule.startDate').isISO8601().withMessage('Valid start date is required'),
+      body('schedule.endDate').isISO8601().withMessage('Valid end date is required'),
+      body('description').optional().isString(),
+      body('scope').optional().isString(),
+      body('methodology').optional().isString(),
+      validateRequest,
+    ],
+    auditController.createAuditFromTemplate
+  )
+
   // Finding routes
   // POST /api/audit/findings
   router.post(

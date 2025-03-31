@@ -680,4 +680,94 @@ export class AuditService {
 
     return Result.ok<AuditTemplate>(template)
   }
+
+  /**
+   * Create a audit from template
+   */
+  public async createAuditFromTemplate(
+    templateId: string,
+    name: AuditName,
+    leadAuditor: AuditorInfo,
+    schedule: SchedulePeriod,
+    userId: string,
+    options?: {
+      auditTeam?: AuditorInfo[]
+      description?: string
+      scope?: string
+      methodology?: string
+    }
+  ): Promise<Result<Audit, Error>> {
+    // Get the template
+    const templateResult = await this.auditTemplateRepository.findById(templateId)
+
+    if (!templateResult.isSuccess) {
+      return Result.fail<Audit>(templateResult.getError())
+    }
+
+    const template = templateResult.getValue()
+
+    if (!template) {
+      return Result.fail<Audit>(new Error(`Audit template with ID ${templateId} not found`))
+    }
+
+    // Check if audit with same name already exists
+    const existsResult = await this.auditRepository.existsByName(name.getValue())
+
+    if (!existsResult.isSuccess) {
+      return Result.fail<Audit>(existsResult.getError())
+    }
+
+    if (existsResult.getValue()) {
+      return Result.fail<Audit>(new Error(`Audit with name '${name.getValue()}' already exists`))
+    }
+
+    // Verify that all framework IDs from the template exist
+    if (template.frameworkIds && template.frameworkIds.length > 0) {
+      for (const frameworkId of template.frameworkIds) {
+        const frameworkResult = await this.frameworkRepository.findById(frameworkId)
+
+        if (!frameworkResult.isSuccess) {
+          return Result.fail<Audit>(frameworkResult.getError())
+        }
+
+        const framework = frameworkResult.getValue()
+
+        if (!framework) {
+          return Result.fail<Audit>(new Error(`Framework with ID ${frameworkId} not found`))
+        }
+      }
+    } else {
+      return Result.fail<Audit>(new Error('Template has no framework IDs'))
+    }
+
+    // Create audit entity using template data
+    const auditId = new mongoose.Types.ObjectId().toString()
+    const auditResult = Audit.create(auditId, {
+      name,
+      type: template.type,
+      description: options?.description || template.description,
+      frameworkIds: template.frameworkIds,
+      leadAuditor,
+      schedule,
+      auditTeam: options?.auditTeam,
+      scope: options?.scope,
+      methodology: options?.methodology || template.description,
+      createdBy: userId,
+    })
+
+    if (!auditResult.isSuccess) {
+      return Result.fail<Audit>(auditResult.getError())
+    }
+
+    const audit = auditResult.getValue()
+
+    // Save audit to repository
+    const saveResult = await this.auditRepository.save(audit)
+
+    if (!saveResult.isSuccess) {
+      return Result.fail<Audit>(saveResult.getError())
+    }
+
+    return Result.ok<Audit>(audit)
+  }
 }

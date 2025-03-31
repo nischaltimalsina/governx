@@ -115,6 +115,7 @@ import { AuditController } from './interfaces/api/audit_controller'
 import { createAuditRouter } from './interfaces/api/audit_routes'
 import { AuditTemplateController } from './interfaces/api/audit_template_controller'
 import { createAuditTemplateRouter } from './interfaces/api/audit_template_routes'
+import { CreateAuditFromTemplateUseCase } from './application/audit/create_audit_from_template'
 
 // Load environment variables
 dotenv.config()
@@ -182,6 +183,7 @@ const createAuditUseCase = new CreateAuditUseCase(auditService)
 const getAuditUseCase = new GetAuditUseCase(auditRepository, findingRepository)
 const listAuditsUseCase = new ListAuditsUseCase(auditRepository, findingRepository)
 const updateAuditStatusUseCase = new UpdateAuditStatusUseCase(auditService)
+const createAuditFromTemplateUseCase = new CreateAuditFromTemplateUseCase(auditService)
 const createFindingUseCase = new CreateFindingUseCase(auditService)
 const getFindingUseCase = new GetFindingUseCase(findingRepository)
 const listFindingsUseCase = new ListFindingsUseCase(findingRepository)
@@ -327,6 +329,7 @@ const auditController = new AuditController(
   getAuditUseCase,
   listAuditsUseCase,
   updateAuditStatusUseCase,
+  createAuditFromTemplateUseCase,
   createFindingUseCase,
   getFindingUseCase,
   listFindingsUseCase,

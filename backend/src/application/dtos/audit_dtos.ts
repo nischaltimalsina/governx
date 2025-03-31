@@ -253,3 +253,28 @@ export interface AuditStatisticsDTO {
     overdue: number
   }
 }
+export interface CreateAuditFromTemplateDTO {
+  templateId: string
+  name: string
+  description?: string
+  leadAuditor: {
+    id: string
+    name: string
+    organization?: string
+    role?: string
+    isExternal: boolean
+  }
+  auditTeam?: {
+    id: string
+    name: string
+    organization?: string
+    role?: string
+    isExternal: boolean
+  }[]
+  schedule: {
+    startDate: Date
+    endDate: Date
+  }
+  scope?: string
+  methodology?: string
+}

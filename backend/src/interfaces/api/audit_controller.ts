@@ -16,6 +16,7 @@ import {
   FindingSeverity,
   FindingStatus,
 } from '../../domain/audit/audit_values'
+import { CreateAuditFromTemplateUseCase } from '@/application/audit/create_audit_from_template'
 
 /**
  * Controller for audit-related endpoints
@@ -26,6 +27,7 @@ export class AuditController {
     private getAuditUseCase: GetAuditUseCase,
     private listAuditsUseCase: ListAuditsUseCase,
     private updateAuditStatusUseCase: UpdateAuditStatusUseCase,
+    private createAuditFromTemplateUseCase: CreateAuditFromTemplateUseCase,
     private createFindingUseCase: CreateFindingUseCase,
     private getFindingUseCase: GetFindingUseCase,
     private listFindingsUseCase: ListFindingsUseCase,
@@ -564,6 +566,64 @@ export class AuditController {
       })
     } catch (error) {
       console.error('Update remediation plan error:', error)
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+      })
+    }
+  }
+  /**
+   * Create a new audit from template
+   */
+  public createAuditFromTemplate = async (req: Request, res: Response): Promise<void> => {
+    try {
+      // Ensure userId is available from auth middleware
+      if (!req.userId) {
+        res.status(401).json({
+          success: false,
+          message: 'Authentication required',
+        })
+        return
+      }
+
+      // Transform dates from request
+      const startDate = new Date(req.body.schedule.startDate)
+      const endDate = new Date(req.body.schedule.endDate)
+
+      // Create DTO from request
+      const createAuditFromTemplateDto = {
+        templateId: req.body.templateId,
+        name: req.body.name,
+        description: req.body.description,
+        leadAuditor: req.body.leadAuditor,
+        auditTeam: req.body.auditTeam,
+        schedule: {
+          startDate,
+          endDate,
+        },
+        scope: req.body.scope,
+        methodology: req.body.methodology,
+      }
+
+      const result = await this.createAuditFromTemplateUseCase.execute(
+        createAuditFromTemplateDto,
+        req.userId
+      )
+
+      if (!result.isSuccess) {
+        res.status(400).json({
+          success: false,
+          message: result.getError().message,
+        })
+        return
+      }
+
+      res.status(201).json({
+        success: true,
+        data: result.getValue(),
+      })
+    } catch (error) {
+      console.error('Create audit from template error:', error)
       res.status(500).json({
         success: false,
         message: 'Internal server error',
