@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "85d5ddea-3596-47cc-8571-00eeeca59d55",
+		"_postman_id": "0f66532b-ec6a-4476-b814-04785f827b4c",
 		"name": "Doqett Compliance API",
 		"description": "API collection for testing Doqett Compliance GRC platform endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43449129"
+		"_uid": "43449129-0f66532b-ec6a-4476-b814-04785f827b4c"
 	},
 	"item": [
 		{
@@ -12,6 +12,10 @@
 			"item": [
 				{
 					"name": "Register User",
+					"id": "fcd5161e-758e-4152-b1f8-ce0b74bba14f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -52,10 +56,15 @@
 									"}"
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"id": "2230d4fc-e596-48c0-a745-99f238d28460"
 							}
 						}
 					],
+					"id": "18c4410c-8b05-4324-8d27-7b7c51b8f694",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -85,6 +94,10 @@
 				},
 				{
 					"name": "Get Current User",
+					"id": "8b3c725b-d216-42a6-890d-7915f0e4d307",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -109,6 +122,7 @@
 					"response": []
 				}
 			],
+			"id": "73609e32-75e4-4e6f-815a-126abacbdb8d",
 			"description": "Authentication endpoints for user registration, login, and session management"
 		},
 		{
@@ -116,6 +130,10 @@
 			"item": [
 				{
 					"name": "List Frameworks",
+					"id": "9f92f949-7ab3-4e56-a564-e6f6bdac93b4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -157,6 +175,10 @@
 				},
 				{
 					"name": "Get Framework",
+					"id": "c2997d46-6b3a-444d-a157-001afc28d1de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -189,6 +211,10 @@
 				},
 				{
 					"name": "Create Framework",
+					"id": "05768912-bad9-47d7-9b11-5d052b548287",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -221,6 +247,7 @@
 					"response": []
 				}
 			],
+			"id": "c2062a33-884a-474d-926e-e3bee5069474",
 			"description": "Endpoints for managing compliance frameworks (e.g., SOC 2, ISO 27001, HIPAA)"
 		},
 		{
@@ -228,6 +255,10 @@
 			"item": [
 				{
 					"name": "List Controls",
+					"id": "ac84acfa-0b21-4866-a0d3-d1050b89cb7c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -282,6 +313,10 @@
 				},
 				{
 					"name": "Get Control",
+					"id": "8e78e940-eace-4ce4-9a53-c5fb384a8d22",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -314,6 +349,10 @@
 				},
 				{
 					"name": "Create Control",
+					"id": "33dc6516-0056-44a1-9c8d-1ee739647363",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -347,6 +386,10 @@
 				},
 				{
 					"name": "Update Control Implementation",
+					"id": "cc58a3b8-58ac-4dda-b5d4-550be52eb516",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -381,6 +424,7 @@
 					"response": []
 				}
 			],
+			"id": "e8600664-6e59-45a6-bf11-60740f2e39e0",
 			"description": "Endpoints for managing controls within compliance frameworks"
 		},
 		{
@@ -388,6 +432,10 @@
 			"item": [
 				{
 					"name": "List Evidence",
+					"id": "f6b1673d-24c8-421a-8c7e-d7121340b66e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -446,6 +494,10 @@
 				},
 				{
 					"name": "Get Evidence",
+					"id": "ebe2e193-c330-479c-b25f-40aae0128c8a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -478,6 +530,10 @@
 				},
 				{
 					"name": "Upload Evidence",
+					"id": "3cd992b7-e072-44c2-a51e-fe8f75be22f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -548,6 +604,10 @@
 				},
 				{
 					"name": "Review Evidence",
+					"id": "815023be-2371-41ca-a0b4-ecf2b03130b5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -583,6 +643,10 @@
 				},
 				{
 					"name": "Link Evidence to Control",
+					"id": "36373411-3f36-4bf0-9f23-f271a05fc59a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -617,6 +681,7 @@
 					"response": []
 				}
 			],
+			"id": "57449072-b333-47a3-b439-077f955bd4c0",
 			"description": "Endpoints for managing evidence for compliance controls"
 		},
 		{
@@ -624,6 +689,10 @@
 			"item": [
 				{
 					"name": "List Policies",
+					"id": "ac1ebebc-01d4-44b2-b5a2-f49fc0c5f3f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -688,6 +757,10 @@
 				},
 				{
 					"name": "Get Policy",
+					"id": "6b89b122-72be-4a02-b7b9-5fe40e620669",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -720,6 +793,10 @@
 				},
 				{
 					"name": "Create Policy",
+					"id": "0d21e813-f045-43c6-99cd-e8a7afa279f9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -753,6 +830,10 @@
 				},
 				{
 					"name": "Approve Policy",
+					"id": "22ef33b6-f253-4b01-a9d8-190e93e7a5cf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -788,6 +869,10 @@
 				},
 				{
 					"name": "Publish Policy",
+					"id": "3eebc25b-3338-4e2c-bed7-250024ec73f3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -822,6 +907,7 @@
 					"response": []
 				}
 			],
+			"id": "25971e9e-7b19-408d-9ad7-2605cad2f76b",
 			"description": "Endpoints for managing policy documents"
 		},
 		{
@@ -829,6 +915,10 @@
 			"item": [
 				{
 					"name": "List Risks",
+					"id": "7901bbdc-e68b-4d74-a784-b31b9a8f6142",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -893,6 +983,10 @@
 				},
 				{
 					"name": "Get Risk",
+					"id": "5954fd10-0ade-498f-ac82-fb7e2920c1e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -929,6 +1023,10 @@
 				},
 				{
 					"name": "Create Risk",
+					"id": "b2862d10-bcd3-496c-868f-ea2ee2e3432e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -962,6 +1060,10 @@
 				},
 				{
 					"name": "Create Risk Treatment",
+					"id": "17568edd-f01e-4f45-82c3-fcf745211161",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -994,6 +1096,7 @@
 					"response": []
 				}
 			],
+			"id": "56aaf264-368c-49b8-a43b-969f7e9e665b",
 			"description": "Endpoints for managing risks and risk treatments"
 		},
 		{
@@ -1001,6 +1104,10 @@
 			"item": [
 				{
 					"name": "List Reports",
+					"id": "57990e5b-3439-4d78-99ba-6e98463c4011",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1010,7 +1117,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/reporting/reports?type=compliance_status&scheduled=true",
+							"raw": "{{baseUrl}}/api/reporting/reports?type=compliance_summary&scheduled=true",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1022,7 +1129,7 @@
 							"query": [
 								{
 									"key": "type",
-									"value": "compliance_status"
+									"value": "compliance_summary"
 								},
 								{
 									"key": "scheduled",
@@ -1046,6 +1153,10 @@
 				},
 				{
 					"name": "Get Report",
+					"id": "e1319d58-9f9d-4564-a595-e61d7338d9c4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1072,6 +1183,10 @@
 				},
 				{
 					"name": "Create Report",
+					"id": "fc765fc4-7647-4e75-9216-d0edbba0747c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1086,7 +1201,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Monthly Compliance Status Report\",\n    \"type\": \"compliance_status\",\n    \"description\": \"Monthly report showing compliance status across all frameworks\",\n    \"format\": \"pdf\",\n    \"filter\": {\n        \"frameworkIds\": [\"{{frameworkId}}\"],\n        \"startDate\": \"2023-01-01T00:00:00.000Z\",\n        \"endDate\": \"2023-12-31T00:00:00.000Z\"\n    },\n    \"schedule\": {\n        \"frequency\": \"monthly\",\n        \"hour\": 1,\n        \"minute\": 0,\n        \"dayOfMonth\": 1,\n        \"recipients\": [\"admin@example.com\", \"compliance@example.com\"]\n    }\n}"
+							"raw": "{\n    \"name\": \"Monthly Compliance Status Report\",\n    \"type\": \"compliance_summary\",\n    \"description\": \"Monthly report showing compliance status across all frameworks\",\n    \"format\": \"excel\",\n    \"filter\": {\n        \"frameworkIds\": [\"{{frameworkId}}\"],\n        \"startDate\": \"2023-01-01T00:00:00.000Z\",\n        \"endDate\": \"2023-12-31T00:00:00.000Z\"\n    },\n    \"schedule\": {\n        \"frequency\": \"monthly\",\n        \"hour\": 1,\n        \"minute\": 0,\n        \"dayOfMonth\": 1,\n        \"recipients\": [\"admin@example.com\", \"compliance@example.com\"]\n    }\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/reporting/reports",
@@ -1105,6 +1220,10 @@
 				},
 				{
 					"name": "Generate Report",
+					"id": "8eba0169-b11a-4a01-9e5f-767734ec48f9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1132,6 +1251,10 @@
 				},
 				{
 					"name": "List Dashboards",
+					"id": "b8cc137d-00d8-42e8-b190-adc8276dfd66",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1178,6 +1301,10 @@
 				},
 				{
 					"name": "Get Dashboard",
+					"id": "7ba9d816-1226-46a1-804a-0c081bee1288",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1204,6 +1331,10 @@
 				},
 				{
 					"name": "Create Dashboard",
+					"id": "47251387-1924-43c0-94e9-6d0d7d396775",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1237,6 +1368,10 @@
 				},
 				{
 					"name": "List Metrics",
+					"id": "38a0a394-30bd-4011-b14e-ff8af20bbe70",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1273,6 +1408,10 @@
 				},
 				{
 					"name": "Get Metric",
+					"id": "bcefc159-62f2-4156-8568-6d0f214bbbc4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1299,6 +1438,10 @@
 				},
 				{
 					"name": "Create Metric",
+					"id": "594fde1c-a004-4d30-a933-b17a670c0d28",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1332,6 +1475,10 @@
 				},
 				{
 					"name": "Calculate Metric",
+					"id": "16c9eeb3-c4d9-467f-aad4-7d4aa385b1a9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1358,6 +1505,7 @@
 					"response": []
 				}
 			],
+			"id": "84c94ac8-9954-4c15-935e-b64a7808ea88",
 			"description": "Endpoints for reports, dashboards, and metrics"
 		},
 		{
@@ -1365,6 +1513,10 @@
 			"item": [
 				{
 					"name": "List Audits",
+					"id": "00d85fc7-9b5c-420b-91b5-608b6bd0947f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1433,6 +1585,10 @@
 				},
 				{
 					"name": "Get Audit",
+					"id": "57ec6bc2-29e2-4633-8d3a-c90c4c9da5a7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1465,6 +1621,10 @@
 				},
 				{
 					"name": "Create Audit",
+					"id": "705f8332-0478-4746-aa75-16624a54743f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1498,6 +1658,10 @@
 				},
 				{
 					"name": "Update Audit Status",
+					"id": "1ccfc603-0008-4c4e-b4ef-2eb3a9bfa48d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1533,6 +1697,10 @@
 				},
 				{
 					"name": "List Findings",
+					"id": "c161d5ab-70f1-4c9c-8718-e77d2f629e6c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1596,6 +1764,10 @@
 				},
 				{
 					"name": "Get Finding",
+					"id": "118cefbd-30c3-4652-89df-a9681fb94397",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1622,6 +1794,10 @@
 				},
 				{
 					"name": "Create Finding",
+					"id": "0b3b4a47-fe61-4d36-a1cc-d716b67db43b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1655,6 +1831,10 @@
 				},
 				{
 					"name": "Update Finding Status",
+					"id": "f3dbdc08-b8a5-43bc-8415-b4da256e4f09",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1690,6 +1870,10 @@
 				},
 				{
 					"name": "Add Remediation Plan",
+					"id": "31583ce7-f0e7-4780-8fe6-271032e95a72",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1725,6 +1909,10 @@
 				},
 				{
 					"name": "Update Remediation Plan",
+					"id": "b908cf0b-2820-43c5-b867-49770f31c4b2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1759,6 +1947,7 @@
 					"response": []
 				}
 			],
+			"id": "85571505-5dcf-47fd-bae8-4c91ddeeaaa8",
 			"description": "Endpoints for managing audits and audit findings"
 		},
 		{
@@ -1766,6 +1955,10 @@
 			"item": [
 				{
 					"name": "List Audit Templates",
+					"id": "7a9388fd-9e3a-4f40-89a9-e5a0c76fb31b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1815,6 +2008,10 @@
 				},
 				{
 					"name": "Get Audit Template",
+					"id": "0fbb154b-6f94-4695-8806-e1e4d6b6741f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1840,6 +2037,10 @@
 				},
 				{
 					"name": "Create Audit Template",
+					"id": "b3b1e517-1613-4e03-b92c-8959711cddac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1872,6 +2073,10 @@
 				},
 				{
 					"name": "Create Audit From Template",
+					"id": "1ed87f8a-11de-4ec9-8098-687bf0b1ddda",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1904,321 +2109,372 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"id": "323c3933-a227-43d8-84c8-bf752187d4f1"
 		},
-    {
-      "name": "Asset Management",
-      "item": [
-        {
-          "name": "Create Asset",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Production Web Server\",\n    \"type\": \"server\",\n    \"description\": \"Primary web server for production environment\",\n    \"status\": \"active\",\n    \"riskLevel\": \"high\",\n    \"location\": \"US East Data Center\",\n    \"ipAddress\": \"10.0.0.1\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5E\",\n    \"serialNumber\": \"SRV-2023-001\",\n    \"purchaseDate\": \"2023-01-15T00:00:00.000Z\",\n    \"endOfLifeDate\": \"2028-01-15T00:00:00.000Z\",\n    \"tags\": [\"production\", \"web-tier\", \"critical\"],\n    \"metadata\": {\n        \"cpuCores\": 16,\n        \"memoryGB\": 64,\n        \"storageGB\": 2000,\n        \"operatingSystem\": \"Ubuntu 22.04 LTS\"\n    },\n    \"owner\": {\n        \"id\": \"user123\",\n        \"name\": \"John Smith\",\n        \"department\": \"IT Operations\"\n    }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets"
-              ]
-            },
-            "description": "Create a new asset"
-          },
-          "response": []
-        },
-        {
-          "name": "Get Asset",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}"
-              ]
-            },
-            "description": "Get an asset by ID"
-          },
-          "response": []
-        },
-        {
-          "name": "List Assets",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/api/assets?type=server&status=active&riskLevel=high&nearingEndOfLife=false&pageSize=10&pageNumber=1",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets"
-              ],
-              "query": [
-                {
-                  "key": "type",
-                  "value": "server"
-                },
-                {
-                  "key": "status",
-                  "value": "active"
-                },
-                {
-                  "key": "riskLevel",
-                  "value": "high"
-                },
-                {
-                  "key": "nearingEndOfLife",
-                  "value": "false"
-                },
-                {
-                  "key": "pageSize",
-                  "value": "10"
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "1"
-                }
-              ]
-            },
-            "description": "List assets with filters"
-          },
-          "response": []
-        },
-        {
-          "name": "Assign Asset Owner",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"ownerId\": \"user456\",\n    \"ownerName\": \"Jane Doe\",\n    \"ownerDepartment\": \"IT Security\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}/owner",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}",
-                "owner"
-              ]
-            },
-            "description": "Assign a new owner to an asset"
-          },
-          "response": []
-        },
-        {
-          "name": "Update Asset Status",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"status\": \"maintenance\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}/status",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}",
-                "status"
-              ]
-            },
-            "description": "Update an asset's status"
-          },
-          "response": []
-        },
-        {
-          "name": "Update Asset Risk Level",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"riskLevel\": \"critical\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}/risk-level",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}",
-                "risk-level"
-              ]
-            },
-            "description": "Update an asset's risk level"
-          },
-          "response": []
-        },
-        {
-          "name": "Link Asset to Control",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"controlId\": \"control123\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}/controls",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}",
-                "controls"
-              ]
-            },
-            "description": "Link an asset to a compliance control"
-          },
-          "response": []
-        },
-        {
-          "name": "Update Technical Details",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"location\": \"US West Data Center\",\n    \"ipAddress\": \"10.0.0.2\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5F\",\n    \"serialNumber\": \"SRV-2023-001-A\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/assets/{{asset_id}}/technical-details",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "{{asset_id}}",
-                "technical-details"
-              ]
-            },
-            "description": "Update an asset's technical details"
-          },
-          "response": []
-        },
-        {
-          "name": "Get Asset Statistics",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/api/assets/statistics",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "assets",
-                "statistics"
-              ]
-            },
-            "description": "Get asset inventory statistics"
-          },
-          "response": []
-        }
-      ],
-      "description": "Endpoints for asset management"
-    },
+		{
+			"name": "Asset Management",
+			"item": [
+				{
+					"name": "Create Asset",
+					"id": "88fbeb92-fa0d-4dec-8fcf-f901cef58634",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Production Web Server\",\n    \"type\": \"server\",\n    \"description\": \"Primary web server for production environment\",\n    \"status\": \"active\",\n    \"riskLevel\": \"high\",\n    \"location\": \"US East Data Center\",\n    \"ipAddress\": \"10.0.0.1\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5E\",\n    \"serialNumber\": \"SRV-2023-001\",\n    \"purchaseDate\": \"2023-01-15T00:00:00.000Z\",\n    \"endOfLifeDate\": \"2028-01-15T00:00:00.000Z\",\n    \"tags\": [\"production\", \"web-tier\", \"critical\"],\n    \"metadata\": {\n        \"cpuCores\": 16,\n        \"memoryGB\": 64,\n        \"storageGB\": 2000,\n        \"operatingSystem\": \"Ubuntu 22.04 LTS\"\n    },\n    \"owner\": {\n        \"id\": \"user123\",\n        \"name\": \"John Smith\",\n        \"department\": \"IT Operations\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets"
+							]
+						},
+						"description": "Create a new asset"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Asset",
+					"id": "8c291ea5-8c60-45bc-9e7d-8dd3d1993d9d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}"
+							]
+						},
+						"description": "Get an asset by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "List Assets",
+					"id": "77c6e0a7-741e-48f8-a793-a416ced9f008",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/assets?type=server&status=active&riskLevel=high&nearingEndOfLife=false&pageSize=10&pageNumber=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "server"
+								},
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "riskLevel",
+									"value": "high"
+								},
+								{
+									"key": "nearingEndOfLife",
+									"value": "false"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "pageNumber",
+									"value": "1"
+								}
+							]
+						},
+						"description": "List assets with filters"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Asset Owner",
+					"id": "c87a0d1c-f6f3-44d7-85ab-0f657fcf5d71",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ownerId\": \"user456\",\n    \"ownerName\": \"Jane Doe\",\n    \"ownerDepartment\": \"IT Security\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}/owner",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}",
+								"owner"
+							]
+						},
+						"description": "Assign a new owner to an asset"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Asset Status",
+					"id": "69dc6686-b189-402e-9ef2-532f5bc70a8b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"maintenance\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}",
+								"status"
+							]
+						},
+						"description": "Update an asset's status"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Asset Risk Level",
+					"id": "dec9cc54-5756-4db1-8c2a-58c05a0b4f40",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"riskLevel\": \"critical\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}/risk-level",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}",
+								"risk-level"
+							]
+						},
+						"description": "Update an asset's risk level"
+					},
+					"response": []
+				},
+				{
+					"name": "Link Asset to Control",
+					"id": "30ede289-1d0d-4f76-aace-b5a88bef3577",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"controlId\": \"67e477567debd8721a9a5ef4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}/controls",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}",
+								"controls"
+							]
+						},
+						"description": "Link an asset to a compliance control"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Technical Details",
+					"id": "56e8c398-72a3-4668-be2c-c4ed8b77b49d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\": \"US West Data Center\",\n    \"ipAddress\": \"10.0.0.2\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5F\",\n    \"serialNumber\": \"SRV-2023-001-A\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/{{asset_id}}/technical-details",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"{{asset_id}}",
+								"technical-details"
+							]
+						},
+						"description": "Update an asset's technical details"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Asset Statistics",
+					"id": "32710862-5849-4d20-9d4c-7456f0e1b276",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/assets/statistics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"assets",
+								"statistics"
+							]
+						},
+						"description": "Get asset inventory statistics"
+					},
+					"response": []
+				}
+			],
+			"id": "4fd38bf7-6c5a-452b-ae13-6ad01837efd2",
+			"description": "Endpoints for asset management"
+		},
 		{
 			"name": "Server Health",
 			"item": [
 				{
 					"name": "Health Check",
+					"id": "80eb48d9-8b90-48e7-bbb8-79c2c6b7db74",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2236,6 +2492,7 @@
 					"response": []
 				}
 			],
+			"id": "c60218f3-0f94-427e-a153-9c9f7ec1e01a",
 			"description": "Endpoints to check server health"
 		}
 	],
@@ -2246,7 +2503,8 @@
 				"type": "text/javascript",
 				"exec": [
 					""
-				]
+				],
+				"id": "1de201d1-986b-490d-9815-9f5cb039db74"
 			}
 		},
 		{
@@ -2255,12 +2513,14 @@
 				"type": "text/javascript",
 				"exec": [
 					""
-				]
+				],
+				"id": "f0743519-79e3-4e9b-8b3f-537703cdec04"
 			}
 		}
 	],
 	"variable": [
 		{
+			"id": "bfb1a792-8511-4760-ae0c-77e3299b5e99",
 			"key": "baseUrl",
 			"value": "http://localhost:4000",
 			"type": "string"
