@@ -225,23 +225,17 @@ export class ReportingService {
         break
       }
       default: {
-        // For Excel and PDF, we'd use appropriate libraries like ExcelJS or PDFKit
         // For this example, we'll just save as JSON with the appropriate extension
         const jsonContent = JSON.stringify(data, null, 2)
         console.log('Saving report to:', filePath)
         fs.writeFileSync(filePath, jsonContent, { encoding: 'binary' })
         console.log('Report saved successfully.')
-
-        // Note: In a real implementation, you would use:
-        // For Excel: ExcelJS, xlsx, or similar library
-        // For PDF: PDFKit, jsPDF, or similar library
         break
       }
     }
   }
 
   /*
-   * Create a new report
    * Get report data based on report type and filters
    */
   private async getReportData(report: Report): Promise<any> {
@@ -699,7 +693,25 @@ export class ReportingService {
 
     // Generate filename
     const timestamp = Date.now()
-    const filename = `report_${reportId}_${timestamp}.${report.format.toLowerCase()}`
+
+    let fileExtension: string
+    switch (report.format) {
+      case ReportFormat.JSON:
+        fileExtension = 'json'
+        break
+      case ReportFormat.CSV:
+        fileExtension = 'csv'
+        break
+      case ReportFormat.EXCEL:
+        fileExtension = 'xlsx' // Use xlsx for Excel files
+        break
+      case ReportFormat.PDF:
+        fileExtension = 'pdf'
+        break
+      default:
+        fileExtension = report.format.toLowerCase()
+    }
+    const filename = `report_${reportId}_${timestamp}.${fileExtension}`
     const filePath = path.join(reportsDir, filename)
     const fileUrl = `/uploads/reports/${filename}`
 
