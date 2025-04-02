@@ -250,7 +250,15 @@ const metricRepository = new MongoMetricRepository()
 const reportingService = new ReportingService(
   reportRepository,
   dashboardRepository,
-  metricRepository
+  metricRepository,
+  frameworkRepository,
+  controlRepository,
+  evidenceRepository,
+  policyRepository,
+  riskRepository,
+  riskTreatmentRepository,
+  auditRepository,
+  findingRepository
 )
 
 // Initialize reporting use cases
