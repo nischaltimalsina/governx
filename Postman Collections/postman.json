@@ -3,7 +3,8 @@
 		"_postman_id": "85d5ddea-3596-47cc-8571-00eeeca59d55",
 		"name": "Doqett Compliance API",
 		"description": "API collection for testing Doqett Compliance GRC platform endpoints",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43449129"
 	},
 	"item": [
 		{
@@ -11,10 +12,6 @@
 			"item": [
 				{
 					"name": "Register User",
-					"id": "ba6a48fc-c5b8-40ec-861e-e3c9852d0ad5",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -27,7 +24,17 @@
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"Admin\",\n    \"lastName\": \"User\",\n    \"roles\": [\"admin\"]\n}"
 						},
-						"url": "{{baseUrl}}/api/auth/register",
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
 						"description": "Register a new user in the system"
 					},
 					"response": []
@@ -45,15 +52,10 @@
 									"}"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"id": "641f94b6-7103-4e86-9cef-1766d34cd5af"
+								"packages": {}
 							}
 						}
 					],
-					"id": "a2298815-9b68-45d4-898b-4170215e89a7",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -66,17 +68,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"Password123\"\n}"
 						},
-						"url": "{{baseUrl}}/api/auth/login",
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
 						"description": "Login to obtain auth token. This automatically saves the token to the environment variable."
 					},
 					"response": []
 				},
 				{
 					"name": "Get Current User",
-					"id": "364df06f-d49d-47a7-984c-aca7c6ee06fb",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -85,13 +93,22 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/auth/me",
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
 						"description": "Get information about the currently logged in user"
 					},
 					"response": []
 				}
 			],
-			"id": "cf5e008a-2738-48f4-98dc-d7133687492a",
 			"description": "Authentication endpoints for user registration, login, and session management"
 		},
 		{
@@ -99,10 +116,6 @@
 			"item": [
 				{
 					"name": "List Frameworks",
-					"id": "ba660738-c56c-471a-bb90-a61a0ba9e3d8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -144,10 +157,6 @@
 				},
 				{
 					"name": "Get Framework",
-					"id": "7addd18c-1a14-4a67-b883-3117fdf2f186",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -180,10 +189,6 @@
 				},
 				{
 					"name": "Create Framework",
-					"id": "fd8c11f3-86a2-47b0-8ae4-f2656fb11425",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -200,13 +205,22 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"SOC 2\",\n    \"version\": \"2023\",\n    \"description\": \"System and Organization Controls for Service Organizations\",\n    \"organization\": \"AICPA\",\n    \"category\": \"security\",\n    \"website\": \"https://www.aicpa.org\",\n    \"isActive\": true\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/frameworks",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/frameworks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"frameworks"
+							]
+						},
 						"description": "Create a new compliance framework"
 					},
 					"response": []
 				}
 			],
-			"id": "70eb4b63-240d-424a-be78-92bd4ee4766b",
 			"description": "Endpoints for managing compliance frameworks (e.g., SOC 2, ISO 27001, HIPAA)"
 		},
 		{
@@ -214,10 +228,6 @@
 			"item": [
 				{
 					"name": "List Controls",
-					"id": "60a5f90f-4ee8-4972-a799-532fe26c3bc4",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -272,10 +282,6 @@
 				},
 				{
 					"name": "Get Control",
-					"id": "826a3a9d-9e89-4a4c-b5c9-e5ba6ff11bfa",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -308,10 +314,6 @@
 				},
 				{
 					"name": "Create Control",
-					"id": "64391916-5a73-4662-a4d2-4858124cea08",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -328,17 +330,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"frameworkId\": \"{{frameworkId}}\",\n    \"code\": \"CC5.1\",\n    \"title\": \"COSO - Control Activities\",\n    \"description\": \"The entity selects and develops control activities that contribute to the mitigation of risks to the achievement of objectives to acceptable levels.\",\n    \"guidance\": \"Implement controls to ensure appropriate access, change management, and secure development processes.\",\n    \"implementationStatus\": \"not_implemented\",\n    \"categories\": [\"control_activities\", \"risk_management\"],\n    \"isActive\": true\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/controls",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/controls",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"controls"
+							]
+						},
 						"description": "Create a new control within a framework"
 					},
 					"response": []
 				},
 				{
 					"name": "Update Control Implementation",
-					"id": "d1aa31f1-f7c2-4629-91cb-cb63388d5738",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -355,13 +363,24 @@
 							"mode": "raw",
 							"raw": "{\n    \"implementationStatus\": \"partially_implemented\",\n    \"implementationDetails\": \"Implementation of password complexity and rotation policy is in progress. Expected completion by end of quarter.\"\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/controls/{{controlId}}/implementation",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/controls/{{controlId}}/implementation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"controls",
+								"{{controlId}}",
+								"implementation"
+							]
+						},
 						"description": "Update the implementation status and details of a control"
 					},
 					"response": []
 				}
 			],
-			"id": "d1d2b6a2-a42f-4ee3-8300-5bf6ac6846f2",
 			"description": "Endpoints for managing controls within compliance frameworks"
 		},
 		{
@@ -369,10 +388,6 @@
 			"item": [
 				{
 					"name": "List Evidence",
-					"id": "5cf13141-f6fe-4e06-9b91-94ab07483924",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -431,10 +446,6 @@
 				},
 				{
 					"name": "Get Evidence",
-					"id": "12a2824b-6ca4-4584-b0d4-ae345d104c5a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -467,10 +478,6 @@
 				},
 				{
 					"name": "Upload Evidence",
-					"id": "fa8af7bc-198c-4918-bc97-3eb1272f4590",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -524,17 +531,23 @@
 								}
 							]
 						},
-						"url": "{{baseUrl}}/api/compliance/evidence",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/evidence",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"evidence"
+							]
+						},
 						"description": "Upload a new evidence file for one or more controls"
 					},
 					"response": []
 				},
 				{
 					"name": "Review Evidence",
-					"id": "75cefade-7589-4ad0-b8ac-dfbd2c3f7812",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -551,17 +564,25 @@
 							"mode": "raw",
 							"raw": "{\n    \"status\": \"approved\",\n    \"notes\": \"Evidence reviewed and approved. Meets all compliance requirements.\"\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/evidence/{{evidenceId}}/review",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/evidence/{{evidenceId}}/review",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"evidence",
+								"{{evidenceId}}",
+								"review"
+							]
+						},
 						"description": "Review and approve/reject an evidence submission"
 					},
 					"response": []
 				},
 				{
 					"name": "Link Evidence to Control",
-					"id": "08be1394-6a0f-45bc-ab91-92db38b0626d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -578,13 +599,24 @@
 							"mode": "raw",
 							"raw": "{\n    \"controlId\": \"{{anotherControlId}}\"\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/evidence/{{evidenceId}}/controls",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/evidence/{{evidenceId}}/controls",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"evidence",
+								"{{evidenceId}}",
+								"controls"
+							]
+						},
 						"description": "Link an existing evidence to an additional control"
 					},
 					"response": []
 				}
 			],
-			"id": "ace339c0-33be-4244-9651-ccbf54ab8c6a",
 			"description": "Endpoints for managing evidence for compliance controls"
 		},
 		{
@@ -592,10 +624,6 @@
 			"item": [
 				{
 					"name": "List Policies",
-					"id": "ae85355c-49e1-499b-9a76-f2ca31f380cf",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -660,10 +688,6 @@
 				},
 				{
 					"name": "Get Policy",
-					"id": "ac51235b-f116-434e-ac1e-008e6f20cf63",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -696,10 +720,6 @@
 				},
 				{
 					"name": "Create Policy",
-					"id": "a50e5fcc-c638-4f4c-8936-c884e0cb26cd",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -716,17 +736,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Password Policy\",\n    \"type\": \"security\",\n    \"description\": \"Policy defining password requirements and management\",\n    \"content\": \"# Password Policy\\n\\n## Purpose\\nThis policy establishes the requirements for secure passwords...\\n\\n## Requirements\\n1. Passwords must be at least 12 characters long\\n2. Passwords must include uppercase, lowercase, numbers, and special characters\\n3. Passwords must be changed every 90 days\\n...\",\n    \"owner\": \"{{userId}}\",\n    \"relatedControlIds\": [\"{{controlId}}\"],\n    \"tags\": [\"security\", \"password\", \"authentication\"]\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/policies",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/policies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"policies"
+							]
+						},
 						"description": "Create a new policy document"
 					},
 					"response": []
 				},
 				{
 					"name": "Approve Policy",
-					"id": "37f82741-b77a-4321-b43a-b4f932803847",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -743,17 +769,25 @@
 							"mode": "raw",
 							"raw": "{\n    \"approverName\": \"Jane Smith\",\n    \"approverTitle\": \"Chief Information Security Officer\",\n    \"comments\": \"Approved after review. All requirements met.\"\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/policies/{{policyId}}/approve",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/policies/{{policyId}}/approve",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"policies",
+								"{{policyId}}",
+								"approve"
+							]
+						},
 						"description": "Approve a policy that is in draft or review status"
 					},
 					"response": []
 				},
 				{
 					"name": "Publish Policy",
-					"id": "7196ac80-90df-4ed4-a216-68411539e200",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -770,13 +804,24 @@
 							"mode": "raw",
 							"raw": "{\n    \"effectiveStartDate\": \"2023-07-01T00:00:00.000Z\",\n    \"effectiveEndDate\": \"2024-07-01T00:00:00.000Z\",\n    \"reviewDate\": \"2024-01-01T00:00:00.000Z\"\n}"
 						},
-						"url": "{{baseUrl}}/api/compliance/policies/{{policyId}}/publish",
+						"url": {
+							"raw": "{{baseUrl}}/api/compliance/policies/{{policyId}}/publish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"compliance",
+								"policies",
+								"{{policyId}}",
+								"publish"
+							]
+						},
 						"description": "Publish an approved policy, making it effective"
 					},
 					"response": []
 				}
 			],
-			"id": "a5fe58ba-79ea-460b-9c11-b35f0de75208",
 			"description": "Endpoints for managing policy documents"
 		},
 		{
@@ -784,10 +829,6 @@
 			"item": [
 				{
 					"name": "List Risks",
-					"id": "a32f5020-7705-4383-8a65-a187a5f14863",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -852,10 +893,6 @@
 				},
 				{
 					"name": "Get Risk",
-					"id": "e6570bc2-6aee-42f5-94e5-7354342a1d4d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -892,10 +929,6 @@
 				},
 				{
 					"name": "Create Risk",
-					"id": "33438ce7-2a69-4b75-96bb-b1768ac40554",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -912,17 +945,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Weak Password Controls\",\n    \"description\": \"Risk of unauthorized access due to weak password policies\",\n    \"category\": \"security\",\n    \"inherentImpact\": \"major\",\n    \"inherentLikelihood\": \"likely\",\n    \"residualImpact\": \"moderate\",\n    \"residualLikelihood\": \"possible\",\n    \"owner\": {\n        \"id\": \"{{userId}}\",\n        \"name\": \"John Smith\",\n        \"department\": \"Information Security\"\n    },\n    \"relatedControlIds\": [\"{{controlId}}\"],\n    \"reviewPeriodMonths\": 3,\n    \"tags\": [\"password\", \"access control\", \"authentication\"]\n}"
 						},
-						"url": "{{baseUrl}}/api/risk/risks",
+						"url": {
+							"raw": "{{baseUrl}}/api/risk/risks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"risk",
+								"risks"
+							]
+						},
 						"description": "Create a new risk assessment"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Risk Treatment",
-					"id": "b7d7e87b-8956-4d6f-8be0-9ce8c9c8c70a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -939,13 +978,22 @@
 							"mode": "raw",
 							"raw": "{\n    \"riskId\": \"{{riskId}}\",\n    \"name\": \"Implement Strong Password Policy\",\n    \"description\": \"Implement and enforce stronger password requirements including minimum length, complexity, and regular rotation\",\n    \"type\": \"mitigate\",\n    \"status\": \"planned\",\n    \"dueDate\": \"2023-08-31T00:00:00.000Z\",\n    \"assignee\": \"{{userId}}\",\n    \"relatedControlIds\": [\"{{controlId}}\"]\n}"
 						},
-						"url": "{{baseUrl}}/api/risk/treatments",
+						"url": {
+							"raw": "{{baseUrl}}/api/risk/treatments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"risk",
+								"treatments"
+							]
+						},
 						"description": "Create a new risk treatment plan"
 					},
 					"response": []
 				}
 			],
-			"id": "23804f3b-12b8-43f3-a994-d38cf479a5ab",
 			"description": "Endpoints for managing risks and risk treatments"
 		},
 		{
@@ -953,10 +1001,6 @@
 			"item": [
 				{
 					"name": "List Reports",
-					"id": "ab0c1066-8da3-4e7a-8afe-69470e724495",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1002,10 +1046,6 @@
 				},
 				{
 					"name": "Get Report",
-					"id": "e5c9c0d4-fb7e-4dfe-9e79-7f69a2957702",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1014,17 +1054,24 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/reporting/reports/{{reportId}}",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/reports/{{reportId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"reports",
+								"{{reportId}}"
+							]
+						},
 						"description": "Get a specific report by ID"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Report",
-					"id": "fe18e7c3-2dd1-4b8c-974f-4ec70791966e",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1041,17 +1088,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Monthly Compliance Status Report\",\n    \"type\": \"compliance_status\",\n    \"description\": \"Monthly report showing compliance status across all frameworks\",\n    \"format\": \"pdf\",\n    \"filter\": {\n        \"frameworkIds\": [\"{{frameworkId}}\"],\n        \"startDate\": \"2023-01-01T00:00:00.000Z\",\n        \"endDate\": \"2023-12-31T00:00:00.000Z\"\n    },\n    \"schedule\": {\n        \"frequency\": \"monthly\",\n        \"hour\": 1,\n        \"minute\": 0,\n        \"dayOfMonth\": 1,\n        \"recipients\": [\"admin@example.com\", \"compliance@example.com\"]\n    }\n}"
 						},
-						"url": "{{baseUrl}}/api/reporting/reports",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"reports"
+							]
+						},
 						"description": "Create a new report definition, optionally with scheduling"
 					},
 					"response": []
 				},
 				{
 					"name": "Generate Report",
-					"id": "43fc67f2-0173-446b-9923-c3e7b37c20e0",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1060,17 +1113,25 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/reporting/reports/{{reportId}}/generate",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/reports/{{reportId}}/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"reports",
+								"{{reportId}}",
+								"generate"
+							]
+						},
 						"description": "Generate a report on demand"
 					},
 					"response": []
 				},
 				{
 					"name": "List Dashboards",
-					"id": "ac5578d2-5d33-436e-a06d-3b195b1d7cf7",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1117,10 +1178,6 @@
 				},
 				{
 					"name": "Get Dashboard",
-					"id": "82d70d18-56c9-40a1-b93b-f63b0dcd6ff8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1129,17 +1186,24 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/reporting/dashboards/{{dashboardId}}",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/dashboards/{{dashboardId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"dashboards",
+								"{{dashboardId}}"
+							]
+						},
 						"description": "Get a specific dashboard by ID"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Dashboard",
-					"id": "62f0427b-a924-49c2-8f88-9e6f77868fff",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1156,17 +1220,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Compliance Overview\",\n    \"type\": \"compliance\",\n    \"description\": \"Dashboard showing key compliance metrics and status\",\n    \"isDefault\": true,\n    \"widgets\": [\n        {\n            \"id\": \"widget1\",\n            \"title\": \"Framework Implementation Status\",\n            \"type\": \"chart\",\n            \"dataSource\": \"/api/compliance/frameworks/stats\",\n            \"size\": {\n                \"width\": 6,\n                \"height\": 4\n            },\n            \"position\": {\n                \"x\": 0,\n                \"y\": 0\n            },\n            \"config\": {\n                \"chartType\": \"bar\",\n                \"xAxis\": \"framework\",\n                \"yAxis\": \"implementationRate\"\n            }\n        },\n        {\n            \"id\": \"widget2\",\n            \"title\": \"Evidence Status\",\n            \"type\": \"chart\",\n            \"dataSource\": \"/api/compliance/evidence/stats\",\n            \"size\": {\n                \"width\": 6,\n                \"height\": 4\n            },\n            \"position\": {\n                \"x\": 6,\n                \"y\": 0\n            },\n            \"config\": {\n                \"chartType\": \"pie\",\n                \"series\": \"status\"\n            }\n        }\n    ]\n}"
 						},
-						"url": "{{baseUrl}}/api/reporting/dashboards",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/dashboards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"dashboards"
+							]
+						},
 						"description": "Create a new dashboard"
 					},
 					"response": []
 				},
 				{
 					"name": "List Metrics",
-					"id": "a27cd006-6821-4914-85cd-78816b3583ad",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1203,10 +1273,6 @@
 				},
 				{
 					"name": "Get Metric",
-					"id": "7b8fabe9-0a2c-4fbe-a225-ee3af78db401",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1215,17 +1281,24 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/reporting/metrics/{{metricId}}",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/metrics/{{metricId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"metrics",
+								"{{metricId}}"
+							]
+						},
 						"description": "Get a specific metric by ID"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Metric",
-					"id": "98b42b8e-c36e-4d9a-ad98-77db58807cf8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1242,17 +1315,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Overall Compliance Score\",\n    \"type\": \"compliance_score\",\n    \"description\": \"Overall compliance score across all frameworks\",\n    \"calculationMethod\": \"average\",\n    \"query\": \"SELECT AVG(implementation_rate) FROM framework_stats\",\n    \"unit\": \"%\",\n    \"thresholds\": {\n        \"critical\": 70,\n        \"warning\": 85,\n        \"target\": 95\n    }\n}"
 						},
-						"url": "{{baseUrl}}/api/reporting/metrics",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/metrics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"metrics"
+							]
+						},
 						"description": "Create a new metric definition"
 					},
 					"response": []
 				},
 				{
 					"name": "Calculate Metric",
-					"id": "708951ba-3ab6-440a-b013-6809eacf599a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1261,13 +1340,24 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/reporting/metrics/{{metricId}}/calculate",
+						"url": {
+							"raw": "{{baseUrl}}/api/reporting/metrics/{{metricId}}/calculate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reporting",
+								"metrics",
+								"{{metricId}}",
+								"calculate"
+							]
+						},
 						"description": "Calculate a metric on demand"
 					},
 					"response": []
 				}
 			],
-			"id": "9a8d9ecb-d0e6-4511-9483-fde34208230e",
 			"description": "Endpoints for reports, dashboards, and metrics"
 		},
 		{
@@ -1275,10 +1365,6 @@
 			"item": [
 				{
 					"name": "List Audits",
-					"id": "8abab251-0304-454a-8cfc-275a53191084",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1347,10 +1433,6 @@
 				},
 				{
 					"name": "Get Audit",
-					"id": "d4c52146-6912-44c5-9a3b-755d63df69a2",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1383,10 +1465,6 @@
 				},
 				{
 					"name": "Create Audit",
-					"id": "f845c760-9d91-4037-852e-61b4eab58ab2",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1403,17 +1481,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"2023 SOC 2 Annual Audit\",\n    \"type\": \"external\",\n    \"description\": \"Annual SOC 2 Type II compliance audit\",\n    \"frameworkIds\": [\"{{frameworkId}}\"],\n    \"leadAuditor\": {\n        \"id\": \"{{userId}}\",\n        \"name\": \"John Smith\",\n        \"organization\": \"Audit Firm LLC\",\n        \"role\": \"Lead Auditor\",\n        \"isExternal\": true\n    },\n    \"auditTeam\": [\n        {\n            \"id\": \"team-member-1\",\n            \"name\": \"Jane Doe\",\n            \"organization\": \"Audit Firm LLC\",\n            \"role\": \"Senior Auditor\",\n            \"isExternal\": true\n        }\n    ],\n    \"schedule\": {\n        \"startDate\": \"2023-06-01T00:00:00.000Z\",\n        \"endDate\": \"2023-06-30T00:00:00.000Z\"\n    },\n    \"scope\": \"This audit covers all SOC 2 controls related to security, availability, and confidentiality.\",\n    \"methodology\": \"The audit will follow AICPA standards for SOC 2 Type II engagements.\"\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/audits",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/audits",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"audits"
+							]
+						},
 						"description": "Create a new audit"
 					},
 					"response": []
 				},
 				{
 					"name": "Update Audit Status",
-					"id": "cfd6e398-9e8b-4962-81d8-0226f64a41d0",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1430,17 +1514,25 @@
 							"mode": "raw",
 							"raw": "{\n    \"status\": \"in_progress\"\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/audits/{{auditId}}/status",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/audits/{{auditId}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"audits",
+								"{{auditId}}",
+								"status"
+							]
+						},
 						"description": "Update the status of an audit"
 					},
 					"response": []
 				},
 				{
 					"name": "List Findings",
-					"id": "2039ae85-d805-4ee3-bccd-048f1e7abd8f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1504,10 +1596,6 @@
 				},
 				{
 					"name": "Get Finding",
-					"id": "541b228e-099b-4878-81ca-edc6c2c39c3a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1516,17 +1604,24 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/audit/findings/{{findingId}}",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/findings/{{findingId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"findings",
+								"{{findingId}}"
+							]
+						},
 						"description": "Get a specific finding by ID"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Finding",
-					"id": "e9036262-3c31-425f-b78c-7717129ed84d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1543,17 +1638,23 @@
 							"mode": "raw",
 							"raw": "{\n    \"auditId\": \"{{auditId}}\",\n    \"title\": \"Weak Password Policy Implementation\",\n    \"description\": \"Password policy does not enforce minimum length and complexity requirements.\",\n    \"type\": \"nonconformity\",\n    \"severity\": \"high\",\n    \"controlIds\": [\"{{controlId}}\"],\n    \"evidenceIds\": [\"{{evidenceId}}\"],\n    \"dueDate\": \"2023-07-31T00:00:00.000Z\",\n    \"remediationPlan\": {\n        \"description\": \"Update and implement password policy to enforce minimum 12 character length and complexity requirements.\",\n        \"dueDate\": \"2023-07-15T00:00:00.000Z\",\n        \"assignee\": \"{{userId}}\"\n    }\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/findings",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/findings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"findings"
+							]
+						},
 						"description": "Create a new audit finding"
 					},
 					"response": []
 				},
 				{
 					"name": "Update Finding Status",
-					"id": "9163a3ea-03ad-4d17-a0ab-1bae7f87adb5",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1570,17 +1671,25 @@
 							"mode": "raw",
 							"raw": "{\n    \"status\": \"in_remediation\"\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/findings/{{findingId}}/status",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/findings/{{findingId}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"findings",
+								"{{findingId}}",
+								"status"
+							]
+						},
 						"description": "Update the status of an audit finding"
 					},
 					"response": []
 				},
 				{
 					"name": "Add Remediation Plan",
-					"id": "d21c3ea2-a0ab-44b6-86d1-f06a35dd268a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1597,17 +1706,25 @@
 							"mode": "raw",
 							"raw": "{\n    \"description\": \"Implement password complexity requirements in Active Directory and update authentication systems.\",\n    \"dueDate\": \"2023-08-15T00:00:00.000Z\",\n    \"assignee\": \"{{userId}}\"\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/findings/{{findingId}}/remediation-plan",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/findings/{{findingId}}/remediation-plan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"findings",
+								"{{findingId}}",
+								"remediation-plan"
+							]
+						},
 						"description": "Add a remediation plan to a finding"
 					},
 					"response": []
 				},
 				{
 					"name": "Update Remediation Plan",
-					"id": "ab6cc80e-7695-45f8-8548-ea4a68697e23",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -1624,13 +1741,24 @@
 							"mode": "raw",
 							"raw": "{\n    \"description\": \"Updated remediation approach to include MFA implementation.\",\n    \"dueDate\": \"2023-09-01T00:00:00.000Z\",\n    \"assignee\": \"{{userId}}\",\n    \"status\": \"in_remediation\"\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/findings/{{findingId}}/remediation-plan",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/findings/{{findingId}}/remediation-plan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"findings",
+								"{{findingId}}",
+								"remediation-plan"
+							]
+						},
 						"description": "Update an existing remediation plan"
 					},
 					"response": []
 				}
 			],
-			"id": "b395f7ed-65c1-4eac-8ec9-0a4d1b1a4967",
 			"description": "Endpoints for managing audits and audit findings"
 		},
 		{
@@ -1638,10 +1766,6 @@
 			"item": [
 				{
 					"name": "List Audit Templates",
-					"id": "adf5dab3-1770-406b-a6d3-6afd9eccdde0",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1691,10 +1815,6 @@
 				},
 				{
 					"name": "Get Audit Template",
-					"id": "996bfd4e-e2f1-445c-9607-e352fbfeccbf",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1703,17 +1823,23 @@
 								"value": "Bearer {{authToken}}"
 							}
 						],
-						"url": "{{baseUrl}}/api/audit-templates/{{templateId}}",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit-templates/{{templateId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit-templates",
+								"{{templateId}}"
+							]
+						},
 						"description": "Get a specific audit template by ID"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Audit Template",
-					"id": "180fe641-fb7f-43d1-8778-deeef7a6d985",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1730,17 +1856,22 @@
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"SOC 2 Type II Audit Template\",\n    \"description\": \"Standard template for SOC 2 Type II audits\",\n    \"type\": \"internal\",\n    \"frameworkIds\": [\"{{frameworkId}}\"],\n    \"controlIds\": [\"{{controlId}}\"],\n    \"checklistItems\": [\n        {\n            \"description\": \"Review password policy documentation\",\n            \"category\": \"Access Control\",\n            \"required\": true\n        },\n        {\n            \"description\": \"Verify encryption at rest implementation\",\n            \"category\": \"Encryption\",\n            \"required\": true\n        },\n        {\n            \"description\": \"Examine network segmentation\",\n            \"category\": \"Network Security\",\n            \"required\": false\n        }\n    ]\n}"
 						},
-						"url": "{{baseUrl}}/api/audit-templates",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit-templates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit-templates"
+							]
+						},
 						"description": "Create a new audit template"
 					},
 					"response": []
 				},
 				{
 					"name": "Create Audit From Template",
-					"id": "0bb5ef09-8823-40b3-8db9-46c14f6ecefc",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1757,33 +1888,354 @@
 							"mode": "raw",
 							"raw": "{\n    \"templateId\": \"{{templateId}}\",\n    \"name\": \"Q3 2023 SOC 2 Audit\",\n    \"leadAuditor\": {\n        \"id\": \"{{userId}}\",\n        \"name\": \"John Smith\",\n        \"organization\": \"Audit Firm LLC\",\n        \"role\": \"Lead Auditor\",\n        \"isExternal\": true\n    },\n    \"schedule\": {\n        \"startDate\": \"2023-07-01T00:00:00.000Z\",\n        \"endDate\": \"2023-09-30T00:00:00.000Z\"\n    }\n}"
 						},
-						"url": "{{baseUrl}}/api/audit/audits/from-template",
+						"url": {
+							"raw": "{{baseUrl}}/api/audit/audits/from-template",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"audit",
+								"audits",
+								"from-template"
+							]
+						},
 						"description": "Create a new audit using an existing template"
 					},
 					"response": []
 				}
-			],
-			"id": "692863b5-fc37-4c7d-bc7e-a4be0e3098a8"
+			]
 		},
+    {
+      "name": "Asset Management",
+      "item": [
+        {
+          "name": "Create Asset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Production Web Server\",\n    \"type\": \"server\",\n    \"description\": \"Primary web server for production environment\",\n    \"status\": \"active\",\n    \"riskLevel\": \"high\",\n    \"location\": \"US East Data Center\",\n    \"ipAddress\": \"10.0.0.1\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5E\",\n    \"serialNumber\": \"SRV-2023-001\",\n    \"purchaseDate\": \"2023-01-15T00:00:00.000Z\",\n    \"endOfLifeDate\": \"2028-01-15T00:00:00.000Z\",\n    \"tags\": [\"production\", \"web-tier\", \"critical\"],\n    \"metadata\": {\n        \"cpuCores\": 16,\n        \"memoryGB\": 64,\n        \"storageGB\": 2000,\n        \"operatingSystem\": \"Ubuntu 22.04 LTS\"\n    },\n    \"owner\": {\n        \"id\": \"user123\",\n        \"name\": \"John Smith\",\n        \"department\": \"IT Operations\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets"
+              ]
+            },
+            "description": "Create a new asset"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Asset",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}"
+              ]
+            },
+            "description": "Get an asset by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "List Assets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/assets?type=server&status=active&riskLevel=high&nearingEndOfLife=false&pageSize=10&pageNumber=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "server"
+                },
+                {
+                  "key": "status",
+                  "value": "active"
+                },
+                {
+                  "key": "riskLevel",
+                  "value": "high"
+                },
+                {
+                  "key": "nearingEndOfLife",
+                  "value": "false"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "List assets with filters"
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Asset Owner",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ownerId\": \"user456\",\n    \"ownerName\": \"Jane Doe\",\n    \"ownerDepartment\": \"IT Security\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}/owner",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}",
+                "owner"
+              ]
+            },
+            "description": "Assign a new owner to an asset"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Asset Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"maintenance\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}",
+                "status"
+              ]
+            },
+            "description": "Update an asset's status"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Asset Risk Level",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"riskLevel\": \"critical\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}/risk-level",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}",
+                "risk-level"
+              ]
+            },
+            "description": "Update an asset's risk level"
+          },
+          "response": []
+        },
+        {
+          "name": "Link Asset to Control",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"controlId\": \"control123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}/controls",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}",
+                "controls"
+              ]
+            },
+            "description": "Link an asset to a compliance control"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Technical Details",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"location\": \"US West Data Center\",\n    \"ipAddress\": \"10.0.0.2\",\n    \"macAddress\": \"00:1A:2B:3C:4D:5F\",\n    \"serialNumber\": \"SRV-2023-001-A\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/assets/{{asset_id}}/technical-details",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "{{asset_id}}",
+                "technical-details"
+              ]
+            },
+            "description": "Update an asset's technical details"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Asset Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/assets/statistics",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "statistics"
+              ]
+            },
+            "description": "Get asset inventory statistics"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints for asset management"
+    },
 		{
 			"name": "Server Health",
 			"item": [
 				{
 					"name": "Health Check",
-					"id": "9556115c-df6e-4c4a-ba85-be8830418faa",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{baseUrl}}/health",
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
 						"description": "Check if the server is running"
 					},
 					"response": []
 				}
 			],
-			"id": "0bda2105-72d5-47c9-9095-8f9af14354e4",
 			"description": "Endpoints to check server health"
 		}
 	],
@@ -1794,8 +2246,7 @@
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "c88a7a5f-cf7c-4fb2-be26-1e148ed74ed5"
+				]
 			}
 		},
 		{
@@ -1804,8 +2255,7 @@
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "16ed6922-f271-45b3-af58-ef221c450b22"
+				]
 			}
 		}
 	],
