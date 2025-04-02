@@ -6,7 +6,9 @@ export enum UserRole {
   COMPLIANCE_MANAGER = 'compliance_manager',
   RISK_MANAGER = 'risk_manager',
   AUDITOR = 'auditor',
-  STANDARD_USER = 'standard_user'
+  STANDARD_USER = 'standard_user',
+  ASSET_MANAGER = 'asset_manager',
+  IT_MANAGER = 'it_manager',
 }
 
 export class Email {

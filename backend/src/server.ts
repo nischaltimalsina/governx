@@ -117,6 +117,23 @@ import { AuditTemplateController } from './interfaces/api/audit_template_control
 import { createAuditTemplateRouter } from './interfaces/api/audit_template_routes'
 import { CreateAuditFromTemplateUseCase } from './application/audit/create_audit_from_template'
 
+// Importing asset use cases
+import { CreateAssetUseCase } from './application/asset/create_asset'
+import { GetAssetUseCase } from './application/asset/get_asset'
+import { ListAssetsUseCase } from './application/asset/list_assets'
+import { AssignAssetOwnerUseCase } from './application/asset/assign_asset_owner'
+import { UpdateAssetStatusUseCase } from './application/asset/update_asset_status'
+import { UpdateAssetRiskLevelUseCase } from './application/asset/update_asset_risk_level'
+import { LinkAssetToControlUseCase } from './application/asset/link_asset_to_control'
+import { UpdateAssetTechnicalDetailsUseCase } from './application/asset/update_asset_technical_details'
+import { GetAssetStatisticsUseCase } from './application/asset/get_asset_statistics'
+
+// Importing asset controller and routes
+import { AssetController } from './interfaces/api/asset_controller'
+import { createAssetRouter } from './interfaces/api/asset_routes'
+import { AssetManagementService } from './domain/asset/asset_service'
+import { MongoAssetRepository } from './infrastructure/repositories/asset_repository'
+
 // Load environment variables
 dotenv.config()
 
@@ -148,6 +165,7 @@ const riskTreatmentRepository = new MongoRiskTreatmentRepository()
 const auditRepository = new MongoAuditRepository()
 const findingRepository = new MongoFindingRepository()
 const auditTemplateRepository = new MongoAuditTemplateRepository()
+const assetRepository = new MongoAssetRepository()
 
 // Initialize domain services
 const authService = new AuthService(userRepository, authRepository)
@@ -196,6 +214,7 @@ const createAuditTemplateUseCase = new CreateAuditTemplateUseCase(auditService)
 const listAuditTemplatesUseCase = new ListAuditTemplatesUseCase(auditTemplateRepository)
 const getAuditTemplateUseCase = new GetAuditTemplateUseCase(auditTemplateRepository)
 
+
 // Initialize evidence use cases
 const createEvidenceUseCase = new CreateEvidenceUseCase(
   evidenceService,
@@ -240,6 +259,19 @@ const getRiskUseCase = new GetRiskUseCase(
 )
 const listRisksUseCase = new ListRisksUseCase(riskRepository, riskTreatmentRepository)
 const createRiskTreatmentUseCase = new CreateRiskTreatmentUseCase(riskManagementService)
+
+// Initialize asset use cases
+const assetManagementService = new AssetManagementService(assetRepository, controlRepository)
+const createAssetUseCase = new CreateAssetUseCase(assetManagementService)
+const getAssetUseCase = new GetAssetUseCase(assetRepository)
+const listAssetsUseCase = new ListAssetsUseCase(assetRepository)
+const assignAssetOwnerUseCase = new AssignAssetOwnerUseCase(assetManagementService)
+const updateAssetStatusUseCase = new UpdateAssetStatusUseCase(assetRepository)
+const updateAssetRiskLevelUseCase = new UpdateAssetRiskLevelUseCase(assetRepository)
+const linkAssetToControlUseCase = new LinkAssetToControlUseCase(assetManagementService)
+const updateAssetTechnicalDetailsUseCase = new UpdateAssetTechnicalDetailsUseCase(assetRepository)
+const getAssetStatisticsUseCase = new GetAssetStatisticsUseCase(assetManagementService)
+
 
 // Initialize repositories
 const reportRepository = new MongoReportRepository()
@@ -352,6 +384,19 @@ const auditTemplateController = new AuditTemplateController(
   listAuditTemplatesUseCase
 )
 
+// Initialize asset controller
+const assetController = new AssetController(
+  createAssetUseCase,
+  getAssetUseCase,
+  listAssetsUseCase,
+  assignAssetOwnerUseCase,
+  updateAssetStatusUseCase,
+  linkAssetToControlUseCase,
+  updateAssetTechnicalDetailsUseCase,
+  updateAssetRiskLevelUseCase,
+  getAssetStatisticsUseCase
+)
+
 // Configure routes
 app.use('/api/auth', createAuthRouter(authController, authRepository, userRepository))
 app.use(
@@ -375,6 +420,7 @@ app.use(
   '/api/audit-templates',
   createAuditTemplateRouter(auditTemplateController, authRepository, userRepository)
 )
+app.use('/api/assets', createAssetRouter(assetController, authRepository, userRepository))
 
 // Serve uploaded files (only in development - in production use a proper storage solution)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
