@@ -1,6 +1,6 @@
 import { Result } from '../../domain/common/result'
 import { AssetManagementService } from '../../domain/asset/asset_service'
-import { AssetName } from '../../domain/asset/asset_values'
+import { AssetName, AssetOwner } from '../../domain/asset/asset_values'
 import { CreateAssetDTO, AssetDTO } from '../dtos/asset_dtos'
 
 /**
@@ -22,7 +22,7 @@ export class CreateAssetUseCase {
     // Create owner value object if provided
     let owner
     if (request.owner) {
-      const ownerOrError = await this.assetManagementService['createOwner'](
+      const ownerOrError = AssetOwner.create(
         request.owner.id,
         request.owner.name,
         request.owner.department

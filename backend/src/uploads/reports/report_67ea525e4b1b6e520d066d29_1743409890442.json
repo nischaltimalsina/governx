@@ -1,0 +1,16 @@
+{
+  "title": "Monthly Compliance Status Report",
+  "description": "Custom report",
+  "generatedAt": "2025-03-31T08:31:30.443Z",
+  "filters": {
+    "frameworkIds": [
+      "67e4771b7debd8721a9a5ee8"
+    ],
+    "controlIds": [],
+    "riskIds": [],
+    "evidenceIds": [],
+    "policyIds": [],
+    "startDate": "2023-01-01T00:00:00.000Z",
+    "endDate": "2023-12-31T00:00:00.000Z"
+  }
+}
