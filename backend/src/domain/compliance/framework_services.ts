@@ -79,6 +79,80 @@ export class ComplianceService {
   }
 
   /**
+   * Update an existing compliance framework
+   */
+  public async updateFramework(
+    frameworkId: string,
+    userId: string,
+    options?: {
+      description?: string
+      organization?: string
+      category?: string
+      website?: string
+      isActive?: boolean
+    }
+  ): Promise<Result<Framework, Error>> {
+    // Find framework
+    const frameworkResult = await this.frameworkRepository.findById(frameworkId)
+
+    if (!frameworkResult.isSuccess) {
+      return Result.fail<Framework>(frameworkResult.getError())
+    }
+
+    const framework = frameworkResult.getValue()
+
+    if (!framework) {
+      return Result.fail<Framework>(new Error(`Framework with ID ${frameworkId} not found`))
+    }
+
+    // Update fields if provided
+    if (options?.description !== undefined) {
+      const updateDescriptionResult = framework.updateDescription(options.description, userId)
+      if (!updateDescriptionResult.isSuccess) {
+        return Result.fail<Framework>(updateDescriptionResult.getError())
+      }
+    }
+
+    if (options?.organization !== undefined) {
+      const updateOrgResult = framework.updateOrganization(options.organization, userId)
+      if (!updateOrgResult.isSuccess) {
+        return Result.fail<Framework>(updateOrgResult.getError())
+      }
+    }
+
+    if (options?.category !== undefined) {
+      const updateCategoryResult = framework.updateCategory(options.category, userId)
+      if (!updateCategoryResult.isSuccess) {
+        return Result.fail<Framework>(updateCategoryResult.getError())
+      }
+    }
+
+    if (options?.website !== undefined) {
+      const updateWebsiteResult = framework.updateWebsite(options.website, userId)
+      if (!updateWebsiteResult.isSuccess) {
+        return Result.fail<Framework>(updateWebsiteResult.getError())
+      }
+    }
+
+    if (options?.isActive !== undefined) {
+      if (options.isActive) {
+        framework.activate()
+      } else {
+        framework.deactivate()
+      }
+    }
+
+    // Save updated framework
+    const saveResult = await this.frameworkRepository.save(framework)
+
+    if (!saveResult.isSuccess) {
+      return Result.fail<Framework>(saveResult.getError())
+    }
+
+    return Result.ok<Framework>(framework)
+  }
+
+  /**
    * Add a control to a framework
    */
   public async addControl(

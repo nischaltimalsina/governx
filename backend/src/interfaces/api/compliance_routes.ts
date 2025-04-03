@@ -20,8 +20,8 @@ export const createComplianceRouter = (
   authRepository: IAuthRepository,
   userRepository: IUserRepository
 ): Router => {
-  const router = Router();
-  const { authenticate, authorize } = authMiddlewareFactory(authRepository, userRepository);
+  const router = Router()
+  const { authenticate, authorize } = authMiddlewareFactory(authRepository, userRepository)
 
   // Framework routes
   // GET /api/compliance/frameworks
@@ -32,10 +32,10 @@ export const createComplianceRouter = (
       query('active').optional().isBoolean().withMessage('Active must be a boolean'),
       query('category').optional().isString().withMessage('Category must be a string'),
       query('organization').optional().isString().withMessage('Organization must be a string'),
-      validateRequest
+      validateRequest,
     ],
     frameworkController.listFrameworks
-  );
+  )
 
   // GET /api/compliance/frameworks/:id
   router.get(
@@ -44,10 +44,10 @@ export const createComplianceRouter = (
       authenticate,
       param('id').isString().withMessage('Framework ID is required'),
       query('includeStats').optional().isBoolean().withMessage('includeStats must be a boolean'),
-      validateRequest
+      validateRequest,
     ],
     frameworkController.getFramework
-  );
+  )
 
   // POST /api/compliance/frameworks
   router.post(
@@ -62,10 +62,27 @@ export const createComplianceRouter = (
       body('category').optional().isString(),
       body('website').optional().isString().isURL().withMessage('Website must be a valid URL'),
       body('isActive').optional().isBoolean(),
-      validateRequest
+      validateRequest,
     ],
     frameworkController.createFramework
-  );
+  )
+
+  // PATCH /api/compliance/frameworks/:id
+  router.patch(
+    '/frameworks/:id',
+    [
+      authenticate,
+      authorize([UserRole.ADMIN, UserRole.COMPLIANCE_MANAGER]),
+      param('id').isString().withMessage('Framework ID is required'),
+      body('description').optional().isString(),
+      body('organization').optional().isString(),
+      body('category').optional().isString(),
+      body('website').optional().isString().isURL().withMessage('Website must be a valid URL'),
+      body('isActive').optional().isBoolean(),
+      validateRequest,
+    ],
+    frameworkController.updateFramework
+  )
 
   // Control routes
   // GET /api/compliance/controls
@@ -74,15 +91,18 @@ export const createComplianceRouter = (
     [
       authenticate,
       query('frameworkId').optional().isString(),
-      query('implementationStatus').optional().isIn(Object.values(ImplementationStatus)).withMessage('Invalid implementation status'),
+      query('implementationStatus')
+        .optional()
+        .isIn(Object.values(ImplementationStatus))
+        .withMessage('Invalid implementation status'),
       query('categories').optional(),
       query('ownerId').optional().isString(),
       query('isActive').optional().isBoolean().withMessage('isActive must be a boolean'),
       query('search').optional().isString(),
-      validateRequest
+      validateRequest,
     ],
     controlController.listControls
-  );
+  )
 
   // GET /api/compliance/controls/:id
   router.get(
@@ -90,11 +110,14 @@ export const createComplianceRouter = (
     [
       authenticate,
       param('id').isString().withMessage('Control ID is required'),
-      query('includeRelated').optional().isBoolean().withMessage('includeRelated must be a boolean'),
-      validateRequest
+      query('includeRelated')
+        .optional()
+        .isBoolean()
+        .withMessage('includeRelated must be a boolean'),
+      validateRequest,
     ],
     controlController.getControl
-  );
+  )
 
   // POST /api/compliance/controls
   router.post(
@@ -107,16 +130,19 @@ export const createComplianceRouter = (
       body('title').isString().notEmpty().withMessage('Control title is required'),
       body('description').isString().notEmpty().withMessage('Control description is required'),
       body('guidance').optional().isString(),
-      body('implementationStatus').optional().isIn(Object.values(ImplementationStatus)).withMessage('Invalid implementation status'),
+      body('implementationStatus')
+        .optional()
+        .isIn(Object.values(ImplementationStatus))
+        .withMessage('Invalid implementation status'),
       body('implementationDetails').optional().isString(),
       body('ownerId').optional().isString(),
       body('categories').optional().isArray(),
       body('parentControlId').optional().isString(),
       body('isActive').optional().isBoolean(),
-      validateRequest
+      validateRequest,
     ],
     controlController.createControl
-  );
+  )
 
   // PATCH /api/compliance/controls/:id/implementation
   router.patch(
@@ -124,18 +150,20 @@ export const createComplianceRouter = (
     [
       authenticate,
       param('id').isString().withMessage('Control ID is required'),
-      body('implementationStatus').isIn(Object.values(ImplementationStatus)).withMessage('Invalid implementation status'),
+      body('implementationStatus')
+        .isIn(Object.values(ImplementationStatus))
+        .withMessage('Invalid implementation status'),
       body('implementationDetails').optional().isString(),
-      validateRequest
+      validateRequest,
     ],
     controlController.updateControlImplementation
-  );
+  )
 
   // Mount evidence routes
-  router.use('/evidence', createEvidenceRouter(evidenceController, authRepository, userRepository));
+  router.use('/evidence', createEvidenceRouter(evidenceController, authRepository, userRepository))
 
   // Mount policy routes
-  router.use('/policies', createPolicyRouter(policyController, authRepository, userRepository));
+  router.use('/policies', createPolicyRouter(policyController, authRepository, userRepository))
 
-  return router;
+  return router
 };

@@ -22,14 +22,14 @@ export function DashboardLayout({ children, title }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex h-screen bg-background">
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header title={title} />
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-4 overflow-auto">
           {children}
         </main>
-        <footer className="border-t p-4 text-center text-sm text-muted-foreground">
+        <footer className="border-t h-12 flex items-center justify-center text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Doqett Compliance. All rights reserved.</p>
         </footer>
       </div>

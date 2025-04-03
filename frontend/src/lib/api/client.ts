@@ -17,7 +17,7 @@ export interface ApiError {
 // Create a configured instance of axios
 const createApiClient = (): AxiosInstance => {
   const client = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://localhost:4000/api',
     headers: {
       'Content-Type': 'application/json',
     },

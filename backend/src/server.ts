@@ -133,6 +133,7 @@ import { AssetController } from './interfaces/api/asset_controller'
 import { createAssetRouter } from './interfaces/api/asset_routes'
 import { AssetManagementService } from './domain/asset/asset_service'
 import { MongoAssetRepository } from './infrastructure/repositories/asset_repository'
+import { UpdateFrameworkUseCase } from './application/compliance/update_framework'
 
 // Load environment variables
 dotenv.config()
@@ -142,7 +143,7 @@ const app = express()
 const port = process.env.PORT || 4000
 
 // Configure middlewares
-app.use(cors())
+app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(helmet())
 app.use(morgan('dev'))
 app.use(express.json())
@@ -195,6 +196,7 @@ const createControlUseCase = new CreateControlUseCase(complianceService)
 const getControlUseCase = new GetControlUseCase(controlRepository)
 const listControlsUseCase = new ListControlsUseCase(controlRepository)
 const updateControlImplementationUseCase = new UpdateControlImplementationUseCase(complianceService)
+const updateFrameworkUseCase = new UpdateFrameworkUseCase(complianceService)
 
 // Initialize audit use cases
 const createAuditUseCase = new CreateAuditUseCase(auditService)
@@ -213,7 +215,6 @@ const updateRemediationPlanUseCase = new UpdateRemediationPlanUseCase(auditServi
 const createAuditTemplateUseCase = new CreateAuditTemplateUseCase(auditService)
 const listAuditTemplatesUseCase = new ListAuditTemplatesUseCase(auditTemplateRepository)
 const getAuditTemplateUseCase = new GetAuditTemplateUseCase(auditTemplateRepository)
-
 
 // Initialize evidence use cases
 const createEvidenceUseCase = new CreateEvidenceUseCase(
@@ -271,7 +272,6 @@ const updateAssetRiskLevelUseCase = new UpdateAssetRiskLevelUseCase(assetReposit
 const linkAssetToControlUseCase = new LinkAssetToControlUseCase(assetManagementService)
 const updateAssetTechnicalDetailsUseCase = new UpdateAssetTechnicalDetailsUseCase(assetRepository)
 const getAssetStatisticsUseCase = new GetAssetStatisticsUseCase(assetManagementService)
-
 
 // Initialize repositories
 const reportRepository = new MongoReportRepository()
@@ -331,7 +331,8 @@ const authController = new AuthController(
 const frameworkController = new FrameworkController(
   createFrameworkUseCase,
   getFrameworkUseCase,
-  listFrameworksUseCase
+  listFrameworksUseCase,
+  updateFrameworkUseCase
 )
 
 const controlController = new ControlController(

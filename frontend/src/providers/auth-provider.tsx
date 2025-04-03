@@ -41,7 +41,7 @@ const AuthContext = createContext<AuthState>(initialState);
 
 // Set up API client with authentication
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost:4000/api',
 });
 
 apiClient.interceptors.request.use((config) => {
@@ -91,7 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsLoading(true);
       const response = await apiClient.post('/auth/login', { email, password });
-
+      console.log(response.data);
       if (response.data.success) {
         const { user, token } = response.data.data;
 
